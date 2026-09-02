@@ -30,27 +30,38 @@ function emptyData() {
   return CANDIDATES.map(() => Array(HOURS).fill(false));
 }
 
-function loadData() {
-  try {
-    const saved = localStorage.getItem(storageKey());
-    if (!saved) return emptyData();
-    const data = JSON.parse(saved);
-    if (!Array.isArray(data) || data.length !== CANDIDATES.length) return emptyData();
-    return data.map(row => {
-      const fixed = Array(HOURS).fill(false);
-      if (Array.isArray(row)) row.slice(0, HOURS).forEach((v, i) => fixed[i] = !!v);
-      return fixed;
-    });
-  } catch {
+async function loadData() {
+  const selectedDate = dateInput.value;
+
+  const { data: rows, error } = await db
+    .from("study_hours")
+    .select("candidate, hour, completed")
+    .eq("date", selectedDate);
+
+  if (error) {
+    console.error("Load error:", error);
     return emptyData();
   }
+
+  const result = emptyData();
+
+  rows.forEach(row => {
+    const candidateIndex = CANDIDATES.indexOf(row.candidate);
+    const hourIndex = Number(row.hour) - 1;
+
+    if (
+      candidateIndex !== -1 &&
+      hourIndex >= 0 &&
+      hourIndex < HOURS
+    ) {
+      result[candidateIndex][hourIndex] = !!row.completed;
+    }
+  });
+
+  return result;
 }
 
-let data = loadData();
-
-function saveData() {
-  localStorage.setItem(storageKey(), JSON.stringify(data));
-}
+let data = emptyData();
 
 function hourText(h) {
   return h === 0 ? "1" : String(h + 1);
@@ -80,11 +91,31 @@ function buildTable() {
       checkbox.className = "hour-checkbox";
       checkbox.checked = data[candidateIndex][h];
 
-      checkbox.addEventListener("change", () => {
-        data[candidateIndex][h] = checkbox.checked;
-        saveData();
-        render();
-      });
+      checkbox.addEventListener("change", async () => {
+  const checked = checkbox.checked;
+
+  data[candidateIndex][h] = checked;
+  render();
+
+  const { error } = await db
+    .from("study_hours")
+    .upsert(
+      {
+        date: dateInput.value,
+        candidate: CANDIDATES[candidateIndex],
+        hour: h + 1,
+        completed: checked
+      },
+      {
+        onConflict: "date,candidate,hour"
+      }
+    );
+
+  if (error) {
+    console.error("Save error:", error);
+    alert("Data save nahi hua!");
+  }
+});
 
       td.appendChild(checkbox);
       tr.appendChild(td);
@@ -265,8 +296,8 @@ function render() {
   drawRankChart();
 }
 
-dateInput.addEventListener("change", () => {
-  data = loadData();
+dateInput.addEventListener("change", async () => {
+  data = await loadData();
   buildTable();
   render();
 });
@@ -281,5 +312,10 @@ document.getElementById("resetBtn").addEventListener("click", () => {
 
 window.addEventListener("resize", render);
 
-buildTable();
-render();
+async function startApp() {
+  data = await loadData();
+  buildTable();
+  render();
+}
+
+startApp();
