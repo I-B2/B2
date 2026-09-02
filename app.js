@@ -329,20 +329,87 @@ async function startApp() {
   render();
 }
 
-startApp();
-db
-  .channel("study-hours-realtime")
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "study_hours"
-    },
-    async () => {
-      data = await loadData();
-      buildTable();
-      render();
-    }
-  )
-  .subscribe();
+const loginScreen = document.getElementById("loginScreen");
+const candidateSelect = document.getElementById("candidateSelect");
+const passcodeInput = document.getElementById("passcodeInput");
+const loginBtn = document.getElementById("loginBtn");
+const loginMessage = document.getElementById("loginMessage");
+
+
+async function startRealtime() {
+  db
+    .channel("study-hours-realtime")
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "study_hours"
+      },
+      async () => {
+        data = await loadData();
+        buildTable();
+        render();
+      }
+    )
+    .subscribe();
+}
+
+
+async function login() {
+  const email = candidateSelect.value;
+  const password = passcodeInput.value;
+
+  loginMessage.textContent = "";
+
+  if (!password) {
+    loginMessage.textContent = "Passcode डालो";
+    return;
+  }
+
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Logging in...";
+
+  const { error } = await db.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    console.error("Login error:", error);
+    loginMessage.textContent = "गलत passcode!";
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Login";
+    return;
+  }
+
+  loginScreen.style.display = "none";
+
+  await startApp();
+  await startRealtime();
+}
+
+
+loginBtn.addEventListener("click", login);
+
+
+passcodeInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    login();
+  }
+});
+
+
+async function checkExistingLogin() {
+  const { data: { session } } = await db.auth.getSession();
+
+  if (session) {
+    loginScreen.style.display = "none";
+
+    await startApp();
+    await startRealtime();
+  }
+}
+
+
+checkExistingLogin();
