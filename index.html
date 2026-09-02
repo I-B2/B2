@@ -7,6 +7,72 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div id="loginScreen" style="
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f4f7fb;
+">
+  <div style="
+    width:320px;
+    padding:30px;
+    background:white;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+  ">
+    <h2 style="margin-top:0;">Study Hour Login</h2>
+
+    <p style="color:#667085;">Apna candidate select karo</p>
+
+    <select id="candidateSelect" style="
+      width:100%;
+      padding:12px;
+      margin-bottom:12px;
+      border:1px solid #d0d5dd;
+      border-radius:8px;
+    ">
+      <option value="brajesh@study.local">Brajesh</option>
+      <option value="bittu@study.local">Bittu</option>
+      <option value="anshu@study.local">Anshu</option>
+      <option value="priti@study.local">Priti</option>
+      <option value="ribha@study.local">Ribha</option>
+    </select>
+
+    <input
+      type="password"
+      id="passcodeInput"
+      placeholder="Passcode"
+      style="
+        width:100%;
+        box-sizing:border-box;
+        padding:12px;
+        margin-bottom:12px;
+        border:1px solid #d0d5dd;
+        border-radius:8px;
+      "
+    >
+
+    <button id="loginBtn" style="
+      width:100%;
+      padding:12px;
+      border:0;
+      border-radius:8px;
+      background:#315efb;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    ">
+      Login
+    </button>
+
+    <p id="loginMessage" style="
+      color:#e34d59;
+      margin-bottom:0;
+    "></p>
+  </div>
+</div>
   <div class="app">
     <header class="topbar">
       <div>
