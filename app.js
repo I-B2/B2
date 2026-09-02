@@ -69,6 +69,7 @@ async function loadData() {
 }
 
 let data = emptyData();
+let loggedInCandidate = null;
 
 function hourText(h) {
   return h === 0 ? "1" : String(h + 1);
@@ -97,6 +98,7 @@ function buildTable() {
       checkbox.type = "checkbox";
       checkbox.className = "hour-checkbox";
       checkbox.checked = data[candidateIndex][h];
+      checkbox.disabled = CANDIDATES[candidateIndex] !== loggedInCandidate;
 
       checkbox.addEventListener("change", async () => {
   const checked = checkbox.checked;
@@ -366,7 +368,10 @@ async function startRealtime() {
 async function login() {
   const email = candidateSelect.value;
   const password = passcodeInput.value;
-
+loggedInCandidate = CANDIDATES.find(
+  name => name.toLowerCase() === email.split("@")[0].toLowerCase()
+);
+  
   loginMessage.textContent = "";
 
   if (!password) {
