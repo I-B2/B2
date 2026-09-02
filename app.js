@@ -330,3 +330,19 @@ async function startApp() {
 }
 
 startApp();
+db
+  .channel("study-hours-realtime")
+  .on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "study_hours"
+    },
+    async () => {
+      data = await loadData();
+      buildTable();
+      render();
+    }
+  )
+  .subscribe();
