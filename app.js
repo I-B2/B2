@@ -1,4 +1,4 @@
-const SUPABASE_URL = "https://yojtvziupqwguocheho.supabase.co";
+const SUPABASE_URL = "https://yojtvziupqwgcuocheho.supabase.co";
 
 const SUPABASE_KEY = "sb_publishable_0DlyNWk3bTJshNF-zskexA_IsSK3BAF";
 
@@ -302,10 +302,21 @@ dateInput.addEventListener("change", async () => {
   render();
 });
 
-document.getElementById("resetBtn").addEventListener("click", () => {
+document.getElementById("resetBtn").addEventListener("click", async () => {
   if (!confirm("Is date ka poora study data reset karna hai?")) return;
+
+  const { error } = await db
+    .from("study_hours")
+    .delete()
+    .eq("date", dateInput.value);
+
+  if (error) {
+    console.error("Reset error:", error);
+    alert("Data reset nahi hua!");
+    return;
+  }
+
   data = emptyData();
-  saveData();
   buildTable();
   render();
 });
