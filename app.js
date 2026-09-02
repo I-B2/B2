@@ -27,7 +27,16 @@ const progressCanvas = document.getElementById("progressChart");
 const rankCanvas = document.getElementById("rankChart");
 
 const today = new Date();
-dateInput.value = today.toISOString().slice(0, 10);
+
+const indiaDate = new Date(
+  today.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+);
+
+dateInput.value =
+  indiaDate.getFullYear() + "-" +
+  String(indiaDate.getMonth() + 1).padStart(2, "0") + "-" +
+  String(indiaDate.getDate()).padStart(2, "0");
+
 
 function storageKey() {
   return `study-report-${dateInput.value}`;
