@@ -1,6 +1,6 @@
 const SUPABASE_URL = "https://yojtvziupqwguocheho.supabase.co";
 
-const SUPABASE_KEY = "YAHAN_APNI_PUBLISHABLE_KEY_PASTE_KARO";
+const SUPABASE_KEY = "sb_publishable_0DlyNWk3bTJshNF-zskexA_IsSK3BAF";
 
 const db = window.supabase.createClient(
   SUPABASE_URL,
