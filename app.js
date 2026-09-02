@@ -1,3 +1,12 @@
+const SUPABASE_URL = "https://yojtvziupqwguocheho.supabase.co";
+
+const SUPABASE_KEY = "YAHAN_APNI_PUBLISHABLE_KEY_PASTE_KARO";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
 const CANDIDATES = ["Brajesh", "Bittu", "Anshu", "Priti", "Ribha"];
 const HOURS = 24;
 
