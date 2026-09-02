@@ -4,7 +4,14 @@ const SUPABASE_KEY = "sb_publishable_0DlyNWk3bTJshNF-zskexA_IsSK3BAF";
 
 const db = window.supabase.createClient(
   SUPABASE_URL,
-  SUPABASE_KEY
+  SUPABASE_KEY,
+  {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false
+    }
+  }
 );
 
 const CANDIDATES = ["Brajesh", "Bittu", "Anshu", "Priti", "Ribha"];
