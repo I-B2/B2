@@ -98,8 +98,9 @@ function buildTable() {
       checkbox.type = "checkbox";
       checkbox.className = "hour-checkbox";
       checkbox.checked = data[candidateIndex][h];
-      checkbox.disabled = CANDIDATES[candidateIndex] !== loggedInCandidate;
-
+     if (CANDIDATES[candidateIndex] !== loggedInCandidate) {
+  checkbox.style.pointerEvents = "none";
+}
       checkbox.addEventListener("change", async () => {
   const checked = checkbox.checked;
 
