@@ -1,0 +1,271 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --text: #182230;
+  --muted: #6b7785;
+  --border: #e4e9f0;
+  --accent: #315efb;
+  --accent-soft: #eef2ff;
+  --success: #16a36a;
+  --danger: #e34d59;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  width: min(1400px, 94%);
+  margin: 0 auto;
+  padding: 28px 0 35px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.subtitle, .panel-head p {
+  color: var(--muted);
+  margin: 7px 0 0;
+}
+
+.date-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  min-width: 175px;
+}
+
+.date-box label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.date-box input {
+  border: 0;
+  outline: 0;
+  font-size: 15px;
+  width: 100%;
+  background: transparent;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 17px;
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.card-hours {
+  font-size: 29px;
+  font-weight: 800;
+  margin-top: 7px;
+}
+
+.card-hours span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.mini-progress {
+  height: 6px;
+  background: #edf0f5;
+  border-radius: 99px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.mini-progress div {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: inherit;
+  transition: width .2s;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 5px 20px rgba(30, 45, 70, .04);
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 16px;
+}
+
+.panel-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.reset-btn {
+  border: 0;
+  background: #fff0f1;
+  color: var(--danger);
+  padding: 9px 13px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 1050px;
+}
+
+th, td {
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  height: 55px;
+}
+
+th {
+  background: #f8faff;
+  color: var(--muted);
+  font-size: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+td:first-child, th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: var(--panel);
+}
+
+th:first-child {
+  background: #f8faff;
+}
+
+.candidate-col {
+  min-width: 135px;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.candidate-name {
+  font-weight: 800;
+}
+
+.hour-label {
+  display: block;
+  font-size: 11px;
+}
+
+.hour-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+.graphs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.graph-panel:last-child {
+  grid-column: 1 / -1;
+}
+
+.graph-panel canvas {
+  width: 100%;
+  height: 300px;
+  display: block;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 8px;
+}
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .graphs {
+    grid-template-columns: 1fr;
+  }
+  .graph-panel:last-child {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .app {
+    width: 96%;
+    padding-top: 18px;
+  }
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .date-box {
+    width: 100%;
+  }
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .panel {
+    padding: 14px;
+  }
+}

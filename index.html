@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Hour Report</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">STUDY TRACKER</p>
+        <h1>Study Hour Report</h1>
+        <p class="subtitle">5 candidates ka hour-by-hour progress</p>
+      </div>
+      <div class="date-box">
+        <label for="reportDate">Report Date</label>
+        <input type="date" id="reportDate">
+      </div>
+    </header>
+
+    <section class="cards" id="summaryCards"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Hour Entry</h2>
+          <p>Jab 1 hour complete ho, us candidate ka checkbox tick karo.</p>
+        </div>
+        <button class="reset-btn" id="resetBtn">Reset Today</button>
+      </div>
+
+      <div class="table-wrap">
+        <table id="hourTable">
+          <thead>
+            <tr>
+              <th class="candidate-col">Candidate</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="graphs">
+      <div class="panel graph-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Total Study Hours</h2>
+            <p>Har candidate ne aaj kitne hours complete kiye.</p>
+          </div>
+        </div>
+        <canvas id="totalChart"></canvas>
+      </div>
+
+      <div class="panel graph-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Hour-by-Hour Progress</h2>
+            <p>Din ke dauran progress ka trend.</p>
+          </div>
+        </div>
+        <canvas id="progressChart"></canvas>
+      </div>
+
+      <div class="panel graph-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Leaderboard</h2>
+            <p>Current study hours ke basis par ranking.</p>
+          </div>
+        </div>
+        <canvas id="rankChart"></canvas>
+      </div>
+    </section>
+
+    <footer>
+      Data automatically browser ke <b>local storage</b> me save hota hai.
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
