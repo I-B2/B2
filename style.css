@@ -212,7 +212,7 @@ th:first-child {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: var(--accent);
+  accent-color: #FACC15;
 }
 
 
