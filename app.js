@@ -378,7 +378,17 @@ async function startRealtime() {
 async function login() {
   const email = candidateSelect.value;
   const password = passcodeInput.value;
-loggedInCandidate = CANDIDATES.find(
+
+  if (email === "guest") {
+  loggedInCandidate = "Guest";
+  loginScreen.style.display = "none";
+  resetBtn.disabled = true;
+
+  await startApp();
+  await startRealtime();
+  return;
+}
+  loggedInCandidate = CANDIDATES.find(
   name => name.toLowerCase() === email.split("@")[0].toLowerCase()
 );
   
