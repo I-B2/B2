@@ -420,6 +420,7 @@ async function login() {
 
   await startApp();
   await startRealtime();
+  showBrainQuiz();
 }
 
 
