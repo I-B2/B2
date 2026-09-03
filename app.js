@@ -386,7 +386,7 @@ async function login() {
 
   await startApp();
   await startRealtime();
-    showBrainQuiz();
+    
   return;
 }
   loggedInCandidate = CANDIDATES.find(
@@ -420,7 +420,7 @@ async function login() {
 
   await startApp();
   await startRealtime();
-  showBrainQuiz();
+  
 }
 
 
@@ -442,72 +442,9 @@ async function checkExistingLogin() {
 
     await startApp();
     await startRealtime();
-    showBrainQuiz();
+    
   }
 }
 
-function showBrainQuiz() {
-    const quizOverlay = document.getElementById("quizOverlay");
 
-    if (quizOverlay) {
-        quizOverlay.classList.add("show");
-    }
-}
-
-const quizSubmitBtn = document.getElementById("quizSubmitBtn");
-const quizResult = document.getElementById("quizResult");
-
-quizSubmitBtn.addEventListener("click", async () => {
-
-  const selected = document.querySelector(
-    'input[name="brainAnswer"]:checked'
-  );
-
-  if (!selected) {
-    quizResult.textContent = "Pehle answer select karo.";
-    return;
-  }
-
-  const answer = selected.value;
-  const correctAnswer = "A";
-  const result = answer === correctAnswer ? "Correct" : "Wrong";
-
-  quizSubmitBtn.disabled = true;
-  quizSubmitBtn.textContent = "Saving...";
-
-  try {
-
-    await fetch("https://script.google.com/macros/s/AKfycby7BEiI-4AFteFPeuTJkcgxVqaac9Dk0yNM1b5Lp-D_eMGHEe5ZyhUTPB5YPeTUl6qG4A/exec", {
-      method: "POST",
-      body: JSON.stringify({
-        date: new Date().toLocaleDateString("en-IN"),
-        time: new Date().toLocaleTimeString("en-IN"),
-        candidate: loggedInCandidate,
-        questionId: "Q01",
-        question: "Agar 5 machines 5 minutes mein 5 products banati hain, to 100 machines 100 products kitne minutes mein banayengi?",
-        answer: answer,
-        result: result
-      })
-    });
-
-    quizResult.textContent =
-      result === "Correct"
-        ? "🎉 Correct! Answer saved."
-        : "🙂 Answer saved.";
-
-    setTimeout(() => {
-      quizOverlay.classList.remove("show");
-    }, 1200);
-
-  } catch (error) {
-
-    console.error("Quiz save error:", error);
-
-    quizResult.textContent =
-      "Answer save nahi ho paya.";
-
-    quizSubmitBtn.disabled = false;
-    quizSubmitBtn.textContent = "Submit Answer";
-  }
-});
 checkExistingLogin();
