@@ -386,6 +386,7 @@ async function login() {
 
   await startApp();
   await startRealtime();
+    showBrainQuiz();
   return;
 }
   loggedInCandidate = CANDIDATES.find(
