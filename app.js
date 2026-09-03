@@ -444,5 +444,11 @@ async function checkExistingLogin() {
   }
 }
 
+function showBrainQuiz() {
+    const quizOverlay = document.getElementById("quizOverlay");
 
+    if (quizOverlay) {
+        quizOverlay.classList.add("show");
+    }
+}
 checkExistingLogin();
