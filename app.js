@@ -440,6 +440,7 @@ async function checkExistingLogin() {
 
     await startApp();
     await startRealtime();
+    showBrainQuiz();
   }
 }
 
