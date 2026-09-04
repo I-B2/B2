@@ -455,3 +455,8 @@ document.getElementById("closeWinner").addEventListener("click", () => {
 document.querySelector("#winnerPopup img").addEventListener("click", () => {
   document.getElementById("winnerPopup").style.display = "none";
 });
+const music = document.getElementById("bgMusic");
+
+document.addEventListener("click", () => {
+  music.play();
+}, { once: true });
