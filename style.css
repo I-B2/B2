@@ -271,3 +271,43 @@ footer {
   }
 }
 
+/* Winner Popup */
+.winner-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.winner-box {
+  max-width: 520px;
+  width: 100%;
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.winner-box img {
+  width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+}
+
+.winner-box button {
+  margin-top: 12px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 10px;
+  background: #315efb;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
