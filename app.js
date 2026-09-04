@@ -452,3 +452,6 @@ checkExistingLogin();
 document.getElementById("closeWinner").addEventListener("click", () => {
   document.getElementById("winnerPopup").style.display = "none";
 });
+document.querySelector("#winnerPopup img").addEventListener("click", () => {
+  document.getElementById("winnerPopup").style.display = "none";
+});
