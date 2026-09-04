@@ -417,7 +417,9 @@ async function login() {
   }
 
   loginScreen.style.display = "none";
-
+const music = document.getElementById("bgMusic");
+music.volume = 1.0;
+music.play();
   await startApp();
   await startRealtime();
   
