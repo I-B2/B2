@@ -212,6 +212,7 @@ th:first-child {
   width: 20px;
   height: 20px;
   cursor: pointer;
+  pointer-events: none;
   accent-color: #FACC15;
 }
 
