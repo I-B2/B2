@@ -460,7 +460,7 @@ document.querySelector("#winnerPopup img").addEventListener("click", () => {
 
 document.getElementById("candidateSelect").addEventListener("change", function () {
     if (this.value === "routine") {
-        window.location.href = "https://example.com";
+        window.location.href = "https://i-b2.github.io/Priti/";
     }
 });
 const music = document.getElementById("bgMusic");
