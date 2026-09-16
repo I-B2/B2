@@ -457,6 +457,12 @@ document.getElementById("closeWinner").addEventListener("click", () => {
 document.querySelector("#winnerPopup img").addEventListener("click", () => {
   document.getElementById("winnerPopup").style.display = "none";
 });
+
+document.getElementById("candidateSelect").addEventListener("change", function () {
+    if (this.value === "routine") {
+        window.location.href = "https://example.com";
+    }
+});
 const music = document.getElementById("bgMusic");
 
 document.addEventListener("click", () => {
