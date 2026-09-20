@@ -1,1437 +1,791 @@
 
-/* =========================================================
-   21–30 SEPTEMBER STUDY WARRIORS CHALLENGE
-   ========================================================= */
+/* =========================================
+   21–30 SEPTEMBER CHALLENGE
+   Colourful Challenge Theme
+   ========================================= */
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-/* =========================================================
-   SUPABASE
-   ========================================================= */
-
-const SUPABASE_URL =
-    "https://yojtvziupqwgcuocheho.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_0DlyNWk3bTJshNF-zskexA_IsSK3BAF";
-
-const challengeDB = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-
-/* =========================================================
-   CHALLENGE SETTINGS
-   ========================================================= */
-
-const CANDIDATES = [
-    "Brajesh",
-    "Bittu",
-    "Anshu",
-    "Priti",
-    "Ribha"
-];
-
-const START_DATE = "2026-09-21";
-const END_DATE   = "2026-09-30";
-
-const DAILY_TARGET = 12;
-const TOTAL_TARGET = 120;
-
-const CHALLENGE_DAYS = [
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30"
-];
-
-
-/* =========================================================
-   SUMIRAN SETTINGS
-   ========================================================= */
-
-/*
-   1st Sumiran:
-   Daily target = 360
-   10-day target = 3600
-
-   2nd/3rd Sumiran:
-   Daily target = 3000
-   10-day target = 30000
-*/
-
-const SUMIRAN_TARGETS = {
-    first: {
-        name: "1st Sumiran",
-        daily: 360,
-        total: 3600
-    },
-
-    third: {
-        name: "2nd/3rd Sumiran",
-        daily: 3000,
-        total: 30000
-    }
-};
-
-
-/* =========================================================
-   DATA STORAGE
-   ========================================================= */
-
-let studyData = {};
-let sumiranData = {};
-
-
-/* =========================================================
-   CREATE EMPTY STUDY DATA
-   ========================================================= */
-
-function createEmptyStudyData() {
-
-    const result = {};
-
-    CANDIDATES.forEach(candidate => {
-
-        result[candidate] = {};
-
-        CHALLENGE_DAYS.forEach(day => {
-
-            result[candidate][day] = 0;
-
-        });
-
-    });
-
-    return result;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255, 0, 110, 0.18), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(0, 200, 255, 0.18), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(120, 60, 255, 0.20), transparent 30%),
+        #f5f7ff;
+    color: #172033;
+    min-height: 100vh;
 }
 
 
-/* =========================================================
-   CREATE EMPTY SUMIRAN DATA
-   ========================================================= */
+/* =========================================
+   MAIN CONTAINER
+   ========================================= */
 
-function createEmptySumiranData() {
-
-    const result = {};
-
-    CANDIDATES.forEach(candidate => {
-
-        result[candidate] = {
-            first: 0,
-            third: 0
-        };
-
-    });
-
-    return result;
+.challenge-container {
+    width: min(1200px, 94%);
+    margin: auto;
+    padding: 25px 0 50px;
 }
 
 
-/* =========================================================
-   DATE HELPER
-   ========================================================= */
+/* =========================================
+   CHALLENGE HEADER
+   ========================================= */
 
-function dateFromDay(day) {
+.challenge-header {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 45px 20px;
+    margin-bottom: 25px;
 
-    return `2026-09-${day}`;
-
-}
-
-
-/* =========================================================
-   LOAD STUDY HOURS
-   ========================================================= */
-
-async function loadChallengeStudyData() {
-
-    studyData = createEmptyStudyData();
-
-    const { data, error } = await challengeDB
-        .from("study_hours")
-        .select("date, candidate, hour, completed")
-        .gte("date", START_DATE)
-        .lte("date", END_DATE);
-
-    if (error) {
-
-        console.error(
-            "Challenge study data error:",
-            error
+    background:
+        linear-gradient(
+            135deg,
+            #ff0080,
+            #7928ca 45%,
+            #00c6ff
         );
 
-        return;
+    color: white;
+    border-radius: 28px;
 
-    }
-
-
-    data.forEach(row => {
-
-        if (!CANDIDATES.includes(row.candidate)) {
-            return;
-        }
-
-        if (!row.completed) {
-            return;
-        }
-
-        const date = String(row.date);
-
-        const day = date.slice(-2);
-
-        if (!CHALLENGE_DAYS.includes(day)) {
-            return;
-        }
-
-        studyData[row.candidate][day]++;
-
-    });
-
+    box-shadow:
+        0 20px 45px rgba(85, 50, 180, 0.25);
 }
 
 
-/* =========================================================
-   LOAD SUMIRAN DATA
-   ========================================================= */
+/* Decorative circles */
 
-async function loadChallengeSumiranData() {
+.challenge-header::before,
+.challenge-header::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+}
 
-    sumiranData = createEmptySumiranData();
+.challenge-header::before {
+    width: 180px;
+    height: 180px;
+    top: -90px;
+    left: -50px;
+}
 
-    const { data, error } = await challengeDB
-        .from("sumiran")
-        .select("date, candidate, type, count")
-        .gte("date", START_DATE)
-        .lte("date", END_DATE);
-
-    if (error) {
-
-        console.error(
-            "Challenge Sumiran data error:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    data.forEach(row => {
-
-        if (!CANDIDATES.includes(row.candidate)) {
-            return;
-        }
-
-        if (
-            row.type !== "first" &&
-            row.type !== "third"
-        ) {
-            return;
-        }
-
-        sumiranData[row.candidate][row.type] +=
-            Number(row.count) || 0;
-
-    });
-
+.challenge-header::after {
+    width: 230px;
+    height: 230px;
+    right: -90px;
+    bottom: -120px;
 }
 
 
-/* =========================================================
-   TOTAL HOURS OF ONE CANDIDATE
-   ========================================================= */
+.challenge-header p {
+    position: relative;
+    z-index: 1;
 
-function getCandidateTotal(candidate) {
-
-    let total = 0;
-
-    CHALLENGE_DAYS.forEach(day => {
-
-        total += studyData[candidate][day];
-
-    });
-
-    return total;
-
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    opacity: 0.9;
 }
 
 
-/* =========================================================
-   TOTAL ALL CANDIDATES
-   ========================================================= */
+.challenge-header h1 {
+    position: relative;
+    z-index: 1;
 
-function getAllStudyHours() {
-
-    let total = 0;
-
-    CANDIDATES.forEach(candidate => {
-
-        total += getCandidateTotal(candidate);
-
-    });
-
-    return total;
-
+    font-size: clamp(30px, 6vw, 55px);
+    line-height: 1.1;
+    margin-bottom: 12px;
 }
 
 
-/* =========================================================
-   DAYS WITH DATA
-   ========================================================= */
+.challenge-header span {
+    position: relative;
+    z-index: 1;
 
-function getCompletedDays() {
+    display: inline-block;
+    padding: 9px 18px;
 
-    let count = 0;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.25);
 
-    CHALLENGE_DAYS.forEach(day => {
+    border-radius: 50px;
 
-        let hasData = false;
-
-        CANDIDATES.forEach(candidate => {
-
-            if (studyData[candidate][day] > 0) {
-                hasData = true;
-            }
-
-        });
-
-        if (hasData) {
-            count++;
-        }
-
-    });
-
-    return count;
-
+    font-size: 14px;
+    font-weight: bold;
 }
 
 
-/* =========================================================
+/* =========================================
    SUMMARY CARDS
-   ========================================================= */
+   ========================================= */
 
-function renderSummary() {
+.challenge-summary {
+    display: grid;
 
-    const daysElement =
-        document.getElementById("daysCompleted");
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
-    const hoursElement =
-        document.getElementById("totalChallengeHours");
+    gap: 18px;
 
-
-    if (daysElement) {
-
-        daysElement.textContent =
-            getCompletedDays();
-
-    }
-
-
-    if (hoursElement) {
-
-        hoursElement.textContent =
-            getAllStudyHours();
-
-    }
-
+    margin-bottom: 25px;
 }
 
 
-/* =========================================================
-   CHALLENGE RANKING
-   ========================================================= */
+.summary-card {
+    position: relative;
+    overflow: hidden;
 
-function renderRanking() {
+    padding: 24px 20px;
 
-    const container =
-        document.getElementById("challengeRanking");
+    border-radius: 22px;
 
-    if (!container) return;
+    background: white;
 
+    box-shadow:
+        0 10px 30px rgba(30, 50, 100, 0.10);
 
-    const ranked = CANDIDATES
-        .map(candidate => {
+    border: 2px solid transparent;
 
-            return {
-                candidate: candidate,
-                hours: getCandidateTotal(candidate)
-            };
-
-        })
-        .sort((a, b) => b.hours - a.hours);
-
-
-    container.innerHTML = "";
-
-
-    ranked.forEach((item, index) => {
-
-        const percentage =
-            Math.min(
-                100,
-                (item.hours / TOTAL_TARGET) * 100
-            );
-
-
-        const card =
-            document.createElement("div");
-
-        card.className = "ranking-card";
-
-
-        let medal = index + 1;
-
-        if (index === 0) medal = "🥇";
-        if (index === 1) medal = "🥈";
-        if (index === 2) medal = "🥉";
-
-
-        card.innerHTML = `
-
-            <div class="rank-number">
-                ${medal}
-            </div>
-
-            <div class="rank-info">
-
-                <div class="rank-name">
-                    ${item.candidate}
-                </div>
-
-                <div class="rank-hours">
-                    ${item.hours} / ${TOTAL_TARGET} hours
-                </div>
-
-            </div>
-
-            <div class="rank-progress">
-
-                <div
-                    class="rank-progress-fill"
-                    style="width:${percentage}%">
-                </div>
-
-            </div>
-
-        `;
-
-
-        container.appendChild(card);
-
-    });
-
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
-/* =========================================================
+.summary-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 35px rgba(30, 50, 100, 0.16);
+}
+
+
+.summary-card:nth-child(1) {
+    border-color: #ff4d8d;
+}
+
+.summary-card:nth-child(2) {
+    border-color: #7c5cff;
+}
+
+.summary-card:nth-child(3) {
+    border-color: #00b8d9;
+}
+
+.summary-card:nth-child(4) {
+    border-color: #ffb000;
+}
+
+
+.summary-card h3 {
+    font-size: 14px;
+    color: #667085;
+    margin-bottom: 10px;
+}
+
+
+.summary-card strong {
+    display: block;
+
+    font-size: 34px;
+    font-weight: 800;
+
+    margin-bottom: 6px;
+}
+
+
+.summary-card:nth-child(1) strong {
+    color: #ff4081;
+}
+
+.summary-card:nth-child(2) strong {
+    color: #7048e8;
+}
+
+.summary-card:nth-child(3) strong {
+    color: #009fc1;
+}
+
+.summary-card:nth-child(4) strong {
+    color: #f59f00;
+}
+
+
+.summary-card p {
+    color: #8b95a7;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   SECTIONS
+   ========================================= */
+
+.challenge-section {
+    background: rgba(255, 255, 255, 0.95);
+
+    border-radius: 25px;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 10px 35px rgba(30, 50, 100, 0.09);
+
+    border: 1px solid rgba(120, 130, 180, 0.15);
+}
+
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+
+.section-heading h2 {
+    font-size: 24px;
+
+    margin-bottom: 6px;
+
+    color: #202a44;
+}
+
+
+.section-heading p {
+    color: #7b8498;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   CHART BOX
+   ========================================= */
+
+.chart-box {
+    position: relative;
+
+    width: 100%;
+    height: 350px;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f8f7ff,
+            #f0fbff
+        );
+
+    border: 1px solid #e5e7f2;
+}
+
+
+/* =========================================
+   RANKING
+   ========================================= */
+
+#challengeRanking {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.ranking-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px 18px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #f8f9ff
+    );
+
+    border: 1px solid #e5e7f2;
+
+    transition: transform 0.2s ease;
+}
+
+
+.ranking-card:hover {
+    transform: translateX(5px);
+}
+
+
+.rank-number {
+    min-width: 45px;
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 20px;
+    font-weight: 800;
+
+    background: #eef0ff;
+}
+
+
+.rank-info {
+    flex: 1;
+}
+
+
+.rank-name {
+    font-weight: 800;
+    font-size: 16px;
+}
+
+
+.rank-hours {
+    color: #7b8498;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+
+.rank-progress {
+    width: 180px;
+    height: 10px;
+
+    background: #e9ecf5;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.rank-progress-fill {
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff0080,
+            #7928ca,
+            #00c6ff
+        );
+}
+
+
+/* Top 3 */
+
+.ranking-card:nth-child(1) .rank-number {
+    background: linear-gradient(135deg, #ffd700, #ff9f00);
+    color: white;
+}
+
+.ranking-card:nth-child(2) .rank-number {
+    background: linear-gradient(135deg, #cfd8dc, #90a4ae);
+    color: white;
+}
+
+.ranking-card:nth-child(3) .rank-number {
+    background: linear-gradient(135deg, #cd7f32, #a85b20);
+    color: white;
+}
+
+
+/* =========================================
+   SUMIRAN
+   ========================================= */
+
+#sumiranTracker {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+
+.sumiran-card {
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fff1f2
+        );
+
+    border: 1px solid #fed7aa;
+}
+
+
+.sumiran-card h3 {
+    margin-bottom: 10px;
+}
+
+
+.sumiran-count {
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #ea580c;
+}
+
+
+.sumiran-target {
+    font-size: 13px;
+
+    color: #78716c;
+}
+
+
+/* =========================================
    TARGET PROGRESS
-   ========================================================= */
+   ========================================= */
 
-function renderTargetProgress() {
+#targetProgress {
+    display: grid;
 
-    const container =
-        document.getElementById("targetProgress");
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-    if (!container) return;
-
-
-    container.innerHTML = "";
-
-
-    CANDIDATES.forEach(candidate => {
-
-        const hours =
-            getCandidateTotal(candidate);
-
-
-        const percentage =
-            Math.min(
-                100,
-                (hours / TOTAL_TARGET) * 100
-            );
-
-
-        const card =
-            document.createElement("div");
-
-        card.className = "target-card";
-
-
-        card.innerHTML = `
-
-            <div class="target-top">
-
-                <span class="target-name">
-                    ${candidate}
-                </span>
-
-                <span class="target-percent">
-                    ${percentage.toFixed(1)}%
-                </span>
-
-            </div>
-
-            <div class="target-bar">
-
-                <div
-                    class="target-fill"
-                    style="width:${percentage}%">
-                </div>
-
-            </div>
-
-            <div class="target-hours">
-                ${hours} / ${TOTAL_TARGET} hours
-            </div>
-
-        `;
-
-
-        container.appendChild(card);
-
-    });
-
+    gap: 16px;
 }
 
 
-/* =========================================================
-   SUMIRAN TRACKER
-   ========================================================= */
+.target-card {
+    padding: 20px;
 
-function renderSumiran() {
+    border-radius: 20px;
 
-    const container =
-        document.getElementById("sumiranTracker");
+    background: #ffffff;
 
-    if (!container) return;
-
-
-    container.innerHTML = "";
-
-
-    CANDIDATES
-        .filter(candidate =>
-            ["Brajesh", "Bittu", "Ribha"]
-                .includes(candidate)
-        )
-        .forEach(candidate => {
-
-            const first =
-                sumiranData[candidate].first;
-
-            const third =
-                sumiranData[candidate].third;
-
-
-            const firstPercent =
-                Math.min(
-                    100,
-                    (first /
-                        SUMIRAN_TARGETS.first.total) * 100
-                );
-
-
-            const thirdPercent =
-                Math.min(
-                    100,
-                    (third /
-                        SUMIRAN_TARGETS.third.total) * 100
-                );
-
-
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "sumiran-card";
-
-
-            card.innerHTML = `
-
-                <h3>🙏 ${candidate}</h3>
-
-                <div style="margin-top:15px">
-
-                    <strong>
-                        1st Sumiran
-                    </strong>
-
-                    <div class="sumiran-count">
-                        ${first}
-                    </div>
-
-                    <div class="sumiran-target">
-                        Target: ${SUMIRAN_TARGETS.first.total}
-                    </div>
-
-                    <div class="target-bar"
-                         style="margin-top:8px">
-
-                        <div
-                            class="target-fill"
-                            style="width:${firstPercent}%">
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div style="margin-top:22px">
-
-                    <strong>
-                        2nd/3rd Sumiran
-                    </strong>
-
-                    <div class="sumiran-count">
-                        ${third}
-                    </div>
-
-                    <div class="sumiran-target">
-                        Target: ${SUMIRAN_TARGETS.third.total}
-                    </div>
-
-                    <div class="target-bar"
-                         style="margin-top:8px">
-
-                        <div
-                            class="target-fill"
-                            style="width:${thirdPercent}%">
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            container.appendChild(card);
-
-        });
-
+    border: 1px solid #e5e7eb;
 }
 
 
-/* =========================================================
-   DAILY CONSISTENCY TABLE
-   ========================================================= */
+.target-top {
+    display: flex;
 
-function renderConsistency() {
+    justify-content: space-between;
 
-    const container =
-        document.getElementById("consistencyTable");
+    align-items: center;
 
-    if (!container) return;
-
-
-    let html = `
-
-        <table class="consistency-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>Candidate</th>
-    `;
-
-
-    CHALLENGE_DAYS.forEach(day => {
-
-        html += `
-            <th>${day}</th>
-        `;
-
-    });
-
-
-    html += `
-                </tr>
-
-            </thead>
-
-            <tbody>
-    `;
-
-
-    CANDIDATES.forEach(candidate => {
-
-        html += `
-            <tr>
-
-                <td>
-                    <strong>${candidate}</strong>
-                </td>
-        `;
-
-
-        CHALLENGE_DAYS.forEach(day => {
-
-            const hours =
-                studyData[candidate][day];
-
-
-            if (hours > 0) {
-
-                html += `
-                    <td>
-                        <span class="consistency-yes">
-                            ${hours}
-                        </span>
-                    </td>
-                `;
-
-            } else {
-
-                html += `
-                    <td>
-                        <span class="consistency-no">
-                            —
-                        </span>
-                    </td>
-                `;
-
-            }
-
-        });
-
-
-        html += `
-            </tr>
-        `;
-
-    });
-
-
-    html += `
-            </tbody>
-
-        </table>
-    `;
-
-
-    container.innerHTML = html;
-
+    margin-bottom: 12px;
 }
 
 
-/* =========================================================
+.target-name {
+    font-weight: 800;
+}
+
+
+.target-percent {
+    font-weight: 800;
+
+    color: #7c3aed;
+}
+
+
+.target-bar {
+    width: 100%;
+    height: 14px;
+
+    background: #ececf5;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.target-fill {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00c6ff,
+            #0072ff,
+            #7c3aed
+        );
+
+    transition: width 0.8s ease;
+}
+
+
+.target-hours {
+    margin-top: 8px;
+
+    color: #7b8498;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   CONSISTENCY TABLE
+   ========================================= */
+
+#consistencyTable {
+    overflow-x: auto;
+}
+
+
+.consistency-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 700px;
+}
+
+
+.consistency-table th {
+    padding: 13px;
+
+    background: #6d5dfc;
+
+    color: white;
+
+    font-size: 13px;
+}
+
+
+.consistency-table td {
+    padding: 13px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #ececf5;
+}
+
+
+.consistency-table tr:nth-child(even) {
+    background: #fafaff;
+}
+
+
+.consistency-yes {
+    display: inline-flex;
+
+    width: 30px;
+    height: 30px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    font-weight: bold;
+}
+
+
+.consistency-no {
+    display: inline-flex;
+
+    width: 30px;
+    height: 30px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
    FINAL RESULT
-   ========================================================= */
+   ========================================= */
 
-function renderFinalResult() {
+.final-result {
+    text-align: center;
 
-    const container =
-        document.getElementById("finalWinner");
-
-    if (!container) return;
-
-
-    const ranked = CANDIDATES
-        .map(candidate => {
-
-            return {
-                candidate,
-                hours: getCandidateTotal(candidate)
-            };
-
-        })
-        .sort((a, b) => b.hours - a.hours);
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ad,
+            #ffd6e7,
+            #d8ccff
+        );
+}
 
 
-    const leader = ranked[0];
+#finalWinner {
+    padding: 25px;
+
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
 
 
-    if (!leader || leader.hours === 0) {
+.winner-crown {
+    font-size: 55px;
 
-        container.innerHTML = `
+    margin-bottom: 10px;
+}
 
-            <div class="winner-crown">
-                👑
-            </div>
 
-            <div class="winner-name">
-                Challenge Started!
-            </div>
+.winner-name {
+    font-size: 32px;
 
-            <div class="winner-hours">
-                21–30 September का result
-                data आने के बाद दिखेगा.
-            </div>
+    font-weight: 900;
 
-        `;
+    background:
+        linear-gradient(
+            90deg,
+            #ff0080,
+            #7c3aed,
+            #0072ff
+        );
 
-        return;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
+
+.winner-hours {
+    margin-top: 8px;
+
+    color: #555b70;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   RESPONSIVE CANVAS FIX
+   ========================================= */
+
+.chart-box {
+    overflow: hidden;
+}
+
+.chart-box canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .challenge-container {
+        width: 94%;
+        padding-top: 15px;
     }
 
-
-    container.innerHTML = `
-
-        <div class="winner-crown">
-            👑
-        </div>
-
-        <div class="winner-name">
-            ${leader.candidate}
-        </div>
-
-        <div class="winner-hours">
-            ${leader.hours} / ${TOTAL_TARGET} Hours
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   CANVAS HELPER
-   ========================================================= */
-
-function prepareCanvas(canvas) {
-
-    if (!canvas) return null;
-
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-
-    const width =
-        Math.max(300, rect.width);
-
-
-    const height =
-        Math.max(250, rect.height);
-
-
-    const dpr =
-        window.devicePixelRatio || 1;
-
-
-    canvas.width =
-        width * dpr;
-
-
-    canvas.height =
-        height * dpr;
-
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
-    );
-
-
-    return {
-        ctx,
-        width,
-        height
-    };
-
-}
-
-
-/* =========================================================
-   10-DAY PROGRESS GRAPH
-   ========================================================= */
-
-function drawChallengeProgressChart() {
-
-    const canvas =
-        document.getElementById(
-            "challengeProgressChart"
-        );
-
-
-    const setup =
-        prepareCanvas(canvas);
-
-
-    if (!setup) return;
-
-
-    const {
-        ctx,
-        width,
-        height
-    } = setup;
-
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    const left = 45;
-    const right = 20;
-    const top = 25;
-    const bottom = 45;
-
-
-    const chartW =
-        width - left - right;
-
-
-    const chartH =
-        height - top - bottom;
-
-
-    const max =
-        Math.max(
-            12,
-            ...CANDIDATES.flatMap(
-                candidate =>
-                    CHALLENGE_DAYS.map(
-                        day =>
-                            studyData[candidate][day]
-                    )
-            )
-        );
-
-
-    /* Grid */
-
-    ctx.font =
-        "12px Arial";
-
-
-    ctx.textAlign =
-        "right";
-
-
-    for (
-        let value = 0;
-        value <= max;
-        value += 2
-    ) {
-
-        const y =
-            top +
-            chartH -
-            (value / max) * chartH;
-
-
-        ctx.strokeStyle =
-            "#e5e7eb";
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            left,
-            y
-        );
-
-        ctx.lineTo(
-            width - right,
-            y
-        );
-
-        ctx.stroke();
-
-
-        ctx.fillStyle =
-            "#667085";
-
-
-        ctx.fillText(
-            value,
-            left - 8,
-            y + 4
-        );
-
+    .challenge-header {
+        padding: 35px 15px;
+        border-radius: 22px;
     }
 
-
-    const colors = [
-        "#ff0080",
-        "#7c3aed",
-        "#0072ff",
-        "#00a884",
-        "#ff9800"
-    ];
-
-
-    CANDIDATES.forEach(
-        (candidate, index) => {
-
-            ctx.strokeStyle =
-                colors[index];
-
-            ctx.lineWidth = 3;
-
-            ctx.beginPath();
-
-
-            CHALLENGE_DAYS.forEach(
-                (day, dayIndex) => {
-
-                    const x =
-                        left +
-                        (dayIndex /
-                            (CHALLENGE_DAYS.length - 1))
-                        * chartW;
-
-
-                    const value =
-                        studyData[
-                            candidate
-                        ][day];
-
-
-                    const y =
-                        top +
-                        chartH -
-                        (value / max) *
-                        chartH;
-
-
-                    if (dayIndex === 0) {
-
-                        ctx.moveTo(
-                            x,
-                            y
-                        );
-
-                    } else {
-
-                        ctx.lineTo(
-                            x,
-                            y
-                        );
-
-                    }
-
-                }
-            );
-
-
-            ctx.stroke();
-
-
-            /* Points */
-
-            CHALLENGE_DAYS.forEach(
-                (day, dayIndex) => {
-
-                    const x =
-                        left +
-                        (dayIndex /
-                            (CHALLENGE_DAYS.length - 1))
-                        * chartW;
-
-
-                    const value =
-                        studyData[
-                            candidate
-                        ][day];
-
-
-                    const y =
-                        top +
-                        chartH -
-                        (value / max) *
-                        chartH;
-
-
-                    ctx.fillStyle =
-                        colors[index];
-
-
-                    ctx.beginPath();
-
-                    ctx.arc(
-                        x,
-                        y,
-                        4,
-                        0,
-                        Math.PI * 2
-                    );
-
-                    ctx.fill();
-
-                }
-            );
-
-        }
-    );
-
-
-    /* X labels */
-
-    ctx.textAlign =
-        "center";
-
-    ctx.fillStyle =
-        "#667085";
-
-
-    CHALLENGE_DAYS.forEach(
-        (day, index) => {
-
-            const x =
-                left +
-                (index /
-                    (CHALLENGE_DAYS.length - 1))
-                * chartW;
-
-
-            ctx.fillText(
-                day,
-                x,
-                height - 18
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CUMULATIVE PROGRESS GRAPH
-   ========================================================= */
-
-function drawCumulativeChart() {
-
-    const canvas =
-        document.getElementById(
-            "cumulativeChart"
-        );
-
-
-    const setup =
-        prepareCanvas(canvas);
-
-
-    if (!setup) return;
-
-
-    const {
-        ctx,
-        width,
-        height
-    } = setup;
-
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    const left = 45;
-    const right = 20;
-    const top = 25;
-    const bottom = 45;
-
-
-    const chartW =
-        width - left - right;
-
-
-    const chartH =
-        height - top - bottom;
-
-
-    const max = 120;
-
-
-    const colors = [
-        "#ff0080",
-        "#7c3aed",
-        "#0072ff",
-        "#00a884",
-        "#ff9800"
-    ];
-
-
-    /* 120 hour target line */
-
-    const targetY =
-        top +
-        chartH -
-        (120 / max) *
-        chartH;
-
-
-    ctx.strokeStyle =
-        "#ef4444";
-
-    ctx.setLineDash([
-        7,
-        5
-    ]);
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        left,
-        targetY
-    );
-
-    ctx.lineTo(
-        width - right,
-        targetY
-    );
-
-    ctx.stroke();
-
-    ctx.setLineDash([]);
-
-
-    ctx.fillStyle =
-        "#ef4444";
-
-    ctx.font =
-        "bold 12px Arial";
-
-    ctx.fillText(
-        "120h Target",
-        left + 5,
-        targetY - 8
-    );
-
-
-    /* Candidate lines */
-
-    CANDIDATES.forEach(
-        (candidate, candidateIndex) => {
-
-            let cumulative = 0;
-
-
-            ctx.strokeStyle =
-                colors[candidateIndex];
-
-            ctx.lineWidth = 3;
-
-            ctx.beginPath();
-
-
-            CHALLENGE_DAYS.forEach(
-                (day, dayIndex) => {
-
-                    cumulative +=
-                        studyData[
-                            candidate
-                        ][day];
-
-
-                    const x =
-                        left +
-                        (dayIndex /
-                            (CHALLENGE_DAYS.length - 1))
-                        * chartW;
-
-
-                    const y =
-                        top +
-                        chartH -
-                        (Math.min(
-                            cumulative,
-                            max
-                        ) / max) *
-                        chartH;
-
-
-                    if (dayIndex === 0) {
-
-                        ctx.moveTo(
-                            x,
-                            y
-                        );
-
-                    } else {
-
-                        ctx.lineTo(
-                            x,
-                            y
-                        );
-
-                    }
-
-                }
-            );
-
-
-            ctx.stroke();
-
-        }
-    );
-
-
-    /* Y labels */
-
-    ctx.fillStyle =
-        "#667085";
-
-    ctx.font =
-        "12px Arial";
-
-    ctx.textAlign =
-        "right";
-
-
-    for (
-        let value = 0;
-        value <= 120;
-        value += 20
-    ) {
-
-        const y =
-            top +
-            chartH -
-            (value / max) *
-            chartH;
-
-
-        ctx.fillText(
-            value + "h",
-            left - 8,
-            y + 4
-        );
-
+    .challenge-summary {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
 
+    .challenge-section {
+        padding: 18px;
 
-    /* X labels */
-
-    ctx.textAlign =
-        "center";
-
-
-    CHALLENGE_DAYS.forEach(
-        (day, index) => {
-
-            const x =
-                left +
-                (index /
-                    (CHALLENGE_DAYS.length - 1))
-                * chartW;
-
-
-            ctx.fillText(
-                day,
-                x,
-                height - 18
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   RENDER EVERYTHING
-   ========================================================= */
-
-function renderChallenge() {
-
-    renderSummary();
-
-    renderRanking();
-
-    renderTargetProgress();
-
-    renderSumiran();
-
-    renderConsistency();
-
-    renderFinalResult();
-
-    drawChallengeProgressChart();
-
-    drawCumulativeChart();
-
-}
-
-
-/* =========================================================
-   INITIAL LOAD
-   ========================================================= */
-
-async function startChallenge() {
-
-    console.log(
-        "Loading Study Warriors Challenge..."
-    );
-
-
-    await loadChallengeStudyData();
-
-    await loadChallengeSumiranData();
-
-
-    renderChallenge();
-
-
-    console.log(
-        "Challenge loaded successfully."
-    );
-
-}
-
-
-/* =========================================================
-   AUTO REFRESH
-   ========================================================= */
-
-setInterval(
-    async () => {
-
-        await loadChallengeStudyData();
-
-        await loadChallengeSumiranData();
-
-        renderChallenge();
-
-    },
-    60000
-);
-
-
-/* =========================================================
-   WINDOW RESIZE
-   ========================================================= */
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        drawChallengeProgressChart();
-
-        drawCumulativeChart();
-
+        border-radius: 20px;
     }
-);
+
+    .chart-box {
+        height: 280px;
+        padding: 8px;
+    }
+
+    #sumiranTracker {
+        grid-template-columns: 1fr;
+    }
+
+    #targetProgress {
+        grid-template-columns: 1fr;
+    }
+
+    .rank-progress {
+        width: 90px;
+    }
+}
 
 
-/* =========================================================
-   START
-   ========================================================= */
+@media (max-width: 480px) {
 
-startChallenge();
+    .challenge-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-card strong {
+        font-size: 30px;
+    }
+
+    .challenge-header h1 {
+        font-size: 30px;
+    }
+
+    .section-heading h2 {
+        font-size: 20px;
+    }
+
+    .ranking-card {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .rank-number {
+        min-width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .rank-progress {
+        display: none;
+    }
+}
