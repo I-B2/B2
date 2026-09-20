@@ -443,7 +443,7 @@ async function checkExistingLogin() {
 
   if (session) {
     loginScreen.style.display = "none";
-
+document.querySelector(".app").style.display = "block";
     await startApp();
     await startRealtime();
     
