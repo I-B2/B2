@@ -382,6 +382,7 @@ async function login() {
   if (email === "guest") {
   loggedInCandidate = "Guest";
   loginScreen.style.display = "none";
+    document.querySelector(".app").style.display = "block";
   resetBtn.disabled = true;
 
   await startApp();
@@ -417,6 +418,7 @@ async function login() {
   }
 
   loginScreen.style.display = "none";
+  document.querySelector(".app").style.display = "block";
 const music = document.getElementById("bgMusic");
 music.volume = 1.0;
 music.play();
