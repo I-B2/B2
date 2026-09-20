@@ -334,3 +334,70 @@ footer {
 
     overflow: hidden;
 }
+/* =========================================
+   HOUR-BY-HOUR PROGRESS - ATTRACTIVE SCROLL
+   ========================================= */
+
+.progress-chart-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Smooth mobile scrolling */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+
+  /* Clean spacing */
+  padding: 8px 4px 14px;
+
+  /* Rounded scrollbar area */
+  border-radius: 16px;
+
+  /* Prevent unwanted vertical shift */
+  box-sizing: border-box;
+}
+
+/* Canvas ko mobile par fixed breathing space */
+.progress-chart-scroll #progressChart {
+  min-width: 760px;
+  display: block;
+
+  /* Thoda premium feel */
+  border-radius: 14px;
+}
+
+/* ================================
+   BEAUTIFUL HORIZONTAL SCROLLBAR
+   ================================ */
+
+.progress-chart-scroll::-webkit-scrollbar {
+  height: 7px;
+}
+
+.progress-chart-scroll::-webkit-scrollbar-track {
+  background: #e9edf3;
+  border-radius: 20px;
+}
+
+.progress-chart-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    90deg,
+    #315efb,
+    #8b5cf6
+  );
+  border-radius: 20px;
+}
+
+.progress-chart-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    90deg,
+    #2448d8,
+    #7c3aed
+  );
+}
+
+/* Firefox */
+.progress-chart-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #315efb #e9edf3;
+}
