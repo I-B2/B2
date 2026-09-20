@@ -1399,21 +1399,31 @@ async function startChallenge() {
 
 
 /* =========================================================
-   AUTO REFRESH
+   REALTIME UPDATE
    ========================================================= */
 
-setInterval(
-    async () => {
+challengeDB
+    .channel("challenge-study-hours-realtime")
+    .on(
+        "postgres_changes",
+        {
+            event: "*",
+            schema: "public",
+            table: "study_hours"
+        },
+        async () => {
 
-        await loadChallengeStudyData();
+            console.log(
+                "Study hours changed → Challenge updating..."
+            );
 
-        await loadChallengeSumiranData();
+            await loadChallengeStudyData();
 
-        renderChallenge();
+            renderChallenge();
 
-    },
-    60000
-);
+        }
+    )
+    .subscribe();
 
 
 /* =========================================================
