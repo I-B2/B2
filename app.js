@@ -210,7 +210,7 @@ function drawProgressChart() {
     const chartW = width - left - right;
     const chartH = height - top - bottom;
     const max = Math.max(5, ...totals());
-    const series = ["#315efb", "#16a36a", "#e38b2c", "#a84ee8", "#e34d59"];
+    const series = ["#315efb", "#16a36a", "#e38b2c", "#a84ee8", "#e34d59","#7c3aed"];
 
     ctx.strokeStyle = "#e5eaf1";
     for (let i = 0; i <= max; i++) {
