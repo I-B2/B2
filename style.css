@@ -335,12 +335,3 @@ footer {
     overflow: hidden;
 }
 
-.progress-chart-scroll {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
-#progressChart {
-    min-width: 700px;
-}
