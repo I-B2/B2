@@ -256,7 +256,7 @@ function drawProgressChart() {
       ctx.fillRect(lx, 5, 12, 4);
       ctx.fillStyle = "#566274";
       ctx.fillText(name, lx + 17, 10);
-      lx += ctx.measureText(name).width + 45;
+      lx += ctx.measureText(name).width + (width < 500 ? 15 : 45);
     });
   });
 }
