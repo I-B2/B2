@@ -1,3 +1,4 @@
+(function () {
 
 /* =========================================================
    21–30 SEPTEMBER STUDY WARRIORS CHALLENGE
@@ -1435,3 +1436,5 @@ window.addEventListener(
    ========================================================= */
 
 startChallenge();
+
+   })();
