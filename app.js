@@ -152,6 +152,7 @@ function cumulative(candidateIndex, hourIndex) {
 }
 
 function drawCanvas(canvas, draw) {
+  if (!canvas) return;
   const dpr = window.devicePixelRatio || 1;
   const rect = canvas.getBoundingClientRect();
   const width = Math.max(300, rect.width);
