@@ -324,7 +324,6 @@ footer {
 
 .challenge-frame {
     display: block;
-
     width: 100%;
     height: 3000px;
 
@@ -334,21 +333,4 @@ footer {
     background: transparent;
 
     overflow: hidden;
-}
-/* Challenge iframe ko background layer me rakho */
-.challenge-wrapper {
-    position: relative;
-    z-index: 1;
-}
-
-.challenge-frame {
-    position: relative;
-    z-index: 1;
-}
-
-
-/* Winner popup hamesha sabse upar */
-#winnerPopup {
-    position: fixed;
-    z-index: 999999;
 }
