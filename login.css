@@ -260,6 +260,12 @@
     );
 
   color: white;
+text-shadow:
+  0 0 8px #38bdf8,
+  0 0 18px #6366f1,
+  0 0 28px #d946ef;
+
+animation: warriorTextGlow 3s ease-in-out infinite, logoGlow 3s ease-in-out infinite;
 
   font-size: 20px;
 
@@ -274,7 +280,7 @@
   border:
     1px solid rgba(255,255,255,.55);
 
-  animation: logoGlow 3s ease-in-out infinite;
+
 }
 
 
@@ -294,7 +300,24 @@
   }
 
 }
+   @keyframes warriorTextGlow {
 
+  0%, 100% {
+    color: #ffffff;
+    text-shadow:
+      0 0 8px #38bdf8,
+      0 0 18px #6366f1;
+  }
+
+  50% {
+    color: #f0abfc;
+    text-shadow:
+      0 0 10px #c084fc,
+      0 0 25px #d946ef,
+      0 0 40px #ec4899;
+  }
+
+}
 
 /* WELCOME BACK */
 
