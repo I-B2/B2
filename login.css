@@ -237,19 +237,19 @@
 
 #loginScreen .login-box h2::before {
 
-  content: "B2";
+  content: "Warrior";
 
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  width: 72px;
-  height: 72px;
+  width: 144px;
+  height: 155px;
 
   margin: 0 auto 22px;
 
-  border-radius: 22px;
+  border-radius: 18px;
 
   background:
     linear-gradient(
@@ -261,7 +261,7 @@
 
   color: white;
 
-  font-size: 25px;
+  font-size: 20px;
 
   font-weight: 900;
 
@@ -300,7 +300,7 @@
 
 #loginScreen .login-box h2::after {
 
-  content: "Welcome Back 👋";
+  content: "Welcome Back ";
 
   display: block;
 
