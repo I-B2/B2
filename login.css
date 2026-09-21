@@ -1,9 +1,15 @@
-/* =========================================
-   LOGIN SCREEN - ATTRACTIVE DESIGN
-   ========================================= */
+/* =========================================================
+   B2 STUDY TRACKER — PREMIUM LOGIN SCREEN
+   ========================================================= */
+
+
+/* =========================
+   MAIN SCREEN
+   ========================= */
 
 #loginScreen {
   min-height: 100dvh;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,30 +20,58 @@
   overflow: hidden;
 
   background:
-    radial-gradient(circle at 15% 20%, rgba(96,165,250,.35), transparent 30%),
-    radial-gradient(circle at 85% 80%, rgba(168,85,247,.35), transparent 30%),
-    linear-gradient(135deg, #111827, #312e81, #581c87);
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(37, 99, 235, 0.45),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 75%,
+      rgba(168, 85, 247, 0.45),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 50% 110%,
+      rgba(236, 72, 153, 0.22),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #07112f 0%,
+      #111b55 45%,
+      #32136d 75%,
+      #581c87 100%
+    );
 }
 
 
-/* Background decorative circles */
+/* =========================
+   BACKGROUND GLOW
+   ========================= */
 
 #loginScreen::before {
   content: "";
 
   position: absolute;
 
-  width: 350px;
-  height: 350px;
+  width: 500px;
+  height: 500px;
 
-  left: -120px;
-  top: -120px;
+  top: -230px;
+  left: -180px;
 
   border-radius: 50%;
 
-  background: rgba(96,165,250,.18);
+  background:
+    radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.5),
+      transparent 65%
+    );
 
-  filter: blur(10px);
+  filter: blur(20px);
+
+  animation: floatingGlow 7s ease-in-out infinite;
 }
 
 
@@ -46,85 +80,160 @@
 
   position: absolute;
 
-  width: 300px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
 
-  right: -100px;
-  bottom: -100px;
+  right: -220px;
+  bottom: -250px;
 
   border-radius: 50%;
 
-  background: rgba(192,132,252,.20);
+  background:
+    radial-gradient(
+      circle,
+      rgba(217, 70, 239, 0.5),
+      transparent 65%
+    );
 
-  filter: blur(10px);
+  filter: blur(20px);
+
+  animation: floatingGlow 9s ease-in-out infinite reverse;
 }
 
 
-/* =========================================
-   LOGIN BOX
-   ========================================= */
+@keyframes floatingGlow {
+
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(25px, 20px) scale(1.08);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+}
+
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
 
 #loginScreen > .login-box {
+
   position: relative;
 
-  z-index: 2;
+  z-index: 5;
 
-  width: min(380px, 100%);
+  width: min(470px, 100%);
 
-  padding: 34px;
+  padding: 42px 44px;
 
-  border-radius: 28px;
+  border-radius: 30px;
 
   background:
-    rgba(255,255,255,.94);
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.18),
+      rgba(255,255,255,0.07)
+    );
 
   border:
-    1px solid rgba(255,255,255,.7);
+    1px solid rgba(255,255,255,0.55);
+
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
 
   box-shadow:
-    0 30px 80px rgba(0,0,0,.35),
-    0 10px 30px rgba(0,0,0,.15);
+    0 35px 90px rgba(0,0,0,0.45),
+    0 0 45px rgba(99,102,241,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.35);
 
-  backdrop-filter: blur(20px);
-
-  animation: loginBoxAppear .6s ease;
+  animation:
+    loginAppear 0.8s cubic-bezier(.2,.8,.2,1);
 }
 
 
-@keyframes loginBoxAppear {
+/* Neon border glow */
+
+#loginScreen > .login-box::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -1px;
+
+  border-radius: 30px;
+
+  padding: 1px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #38bdf8,
+      #6366f1,
+      #d946ef,
+      #38bdf8
+    );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask-composite: exclude;
+
+  opacity: .9;
+
+  pointer-events: none;
+}
+
+
+@keyframes loginAppear {
 
   from {
     opacity: 0;
-    transform: translateY(25px) scale(.96);
+    transform:
+      translateY(35px)
+      scale(.94);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform:
+      translateY(0)
+      scale(1);
   }
 
 }
 
 
-/* =========================================
+/* =========================================================
    LOGIN TITLE
-   ========================================= */
+   ========================================================= */
 
 #loginScreen .login-box h2 {
 
-  margin: 0 0 8px;
+  margin: 0;
 
   text-align: center;
 
-  font-size: 30px;
+  font-size: 0;
+
+  color: white;
+
+  position: relative;
 
   font-weight: 800;
-
-  color: #182230;
-
-  letter-spacing: -.5px;
 }
 
+
+/* B2 LOGO */
 
 #loginScreen .login-box h2::before {
 
@@ -135,237 +244,399 @@
   align-items: center;
   justify-content: center;
 
-  width: 52px;
-  height: 52px;
+  width: 72px;
+  height: 72px;
 
-  margin: 0 auto 15px;
+  margin: 0 auto 22px;
 
-  border-radius: 16px;
+  border-radius: 22px;
 
   background:
     linear-gradient(
       135deg,
-      #315efb,
-      #7c3aed
+      #2563eb,
+      #6366f1 45%,
+      #d946ef
     );
 
   color: white;
 
-  font-size: 18px;
+  font-size: 25px;
 
   font-weight: 900;
 
+  letter-spacing: -1px;
+
   box-shadow:
-    0 10px 25px rgba(49,94,251,.30);
+    0 12px 35px rgba(59,130,246,.45),
+    0 0 35px rgba(168,85,247,.25);
+
+  border:
+    1px solid rgba(255,255,255,.55);
+
+  animation: logoGlow 3s ease-in-out infinite;
 }
 
+
+@keyframes logoGlow {
+
+  0%,
+  100% {
+    box-shadow:
+      0 12px 35px rgba(59,130,246,.45),
+      0 0 35px rgba(168,85,247,.25);
+  }
+
+  50% {
+    box-shadow:
+      0 12px 45px rgba(59,130,246,.65),
+      0 0 55px rgba(217,70,239,.35);
+  }
+
+}
+
+
+/* WELCOME BACK */
+
+#loginScreen .login-box h2::after {
+
+  content: "Welcome Back 👋";
+
+  display: block;
+
+  font-size: 36px;
+
+  line-height: 1.15;
+
+  font-weight: 850;
+
+  letter-spacing: -1px;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 3px 15px rgba(0,0,0,.2);
+}
+
+
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
 
 #loginScreen .login-box p:first-of-type {
 
+  margin: 12px 0 28px !important;
+
   text-align: center;
 
-  color: #667085 !important;
+  color: rgba(255,255,255,.72) !important;
 
-  font-size: 13px;
+  font-size: 15px;
 
-  margin:
-    0 0 22px !important;
+  font-weight: 500;
+
+  letter-spacing: .2px;
 }
 
 
-/* =========================================
+/* =========================================================
    SELECT
-   ========================================= */
+   ========================================================= */
 
 #candidateSelect {
 
-  width: 100%;
+  width: 100% !important;
 
-  padding: 13px 14px;
+  box-sizing: border-box;
 
-  margin-bottom: 14px;
+  padding: 15px 17px !important;
+
+  margin-bottom: 14px !important;
 
   border:
-    1px solid #d9dee8 !important;
+    1px solid rgba(255,255,255,.30) !important;
 
-  border-radius: 12px !important;
+  border-radius: 15px !important;
 
-  background: #f8fafc;
+  background:
+    rgba(255,255,255,.10) !important;
 
-  color: #182230;
+  color: white !important;
 
-  font-size: 14px;
+  font-size: 15px;
 
   outline: none;
 
   cursor: pointer;
 
-  transition: .2s;
+  backdrop-filter: blur(12px);
 
-  box-shadow: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12);
+
+  transition:
+    .25s ease;
+}
+
+
+/* Dropdown options */
+
+#candidateSelect option {
+
+  background: #171d4d;
+
+  color: white;
 }
 
 
 #candidateSelect:hover {
 
-  border-color: #9aa8ff !important;
+  border-color:
+    rgba(129,140,248,.85) !important;
+
+  background:
+    rgba(255,255,255,.14) !important;
 }
 
 
 #candidateSelect:focus {
 
-  border-color: #315efb !important;
-
-  background: white;
+  border-color:
+    #60a5fa !important;
 
   box-shadow:
-    0 0 0 4px rgba(49,94,251,.10) !important;
+    0 0 0 4px rgba(96,165,250,.15),
+    0 0 25px rgba(59,130,246,.18) !important;
 }
 
 
-/* =========================================
+/* =========================================================
    PASSWORD
-   ========================================= */
+   ========================================================= */
 
 #passcodeInput {
 
-  width: 100%;
+  width: 100% !important;
 
   box-sizing: border-box;
 
-  padding: 13px 14px;
+  padding: 15px 17px !important;
 
-  margin-bottom: 14px;
+  margin-bottom: 18px !important;
 
   border:
-    1px solid #d9dee8 !important;
+    1px solid rgba(255,255,255,.30) !important;
 
-  border-radius: 12px !important;
+  border-radius: 15px !important;
 
-  background: #f8fafc;
+  background:
+    rgba(255,255,255,.10) !important;
 
-  color: #182230;
+  color: white !important;
 
-  font-size: 14px;
+  font-size: 15px;
 
   outline: none;
 
-  transition: .2s;
+  backdrop-filter: blur(12px);
 
-  box-shadow: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12);
+
+  transition:
+    .25s ease;
 }
 
 
 #passcodeInput::placeholder {
 
-  color: #98a2b3;
+  color:
+    rgba(219,226,255,.60);
 }
 
 
 #passcodeInput:focus {
 
-  border-color: #315efb !important;
+  border-color:
+    #60a5fa !important;
 
-  background: white;
+  background:
+    rgba(255,255,255,.14) !important;
 
   box-shadow:
-    0 0 0 4px rgba(49,94,251,.10) !important;
+    0 0 0 4px rgba(96,165,250,.15),
+    0 0 25px rgba(59,130,246,.18) !important;
 }
 
 
-/* =========================================
+/* =========================================================
    LOGIN BUTTON
-   ========================================= */
+   ========================================================= */
 
 #loginBtn {
 
-  width: 100%;
+  width: 100% !important;
 
-  padding: 13px;
+  padding: 15px !important;
 
   border: 0 !important;
 
-  border-radius: 12px !important;
+  border-radius: 15px !important;
 
   background:
     linear-gradient(
-      135deg,
-      #315efb,
-      #6d28d9
+      100deg,
+      #0ea5e9,
+      #4f46e5,
+      #c026d3
     ) !important;
 
-  color: white;
+  background-size: 200% 100%;
 
-  font-size: 14px;
+  color: white !important;
+
+  font-size: 16px;
 
   font-weight: 800;
+
+  letter-spacing: .2px;
 
   cursor: pointer;
 
   box-shadow:
-    0 10px 25px rgba(49,94,251,.28);
+    0 12px 30px rgba(79,70,229,.38),
+    0 0 25px rgba(168,85,247,.18);
 
   transition:
-    transform .2s,
-    box-shadow .2s;
+    transform .2s ease,
+    box-shadow .2s ease,
+    background-position .4s ease;
 }
 
 
 #loginBtn:hover {
 
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+
+  background-position: 100% 0;
 
   box-shadow:
-    0 15px 30px rgba(49,94,251,.35);
+    0 18px 40px rgba(79,70,229,.48),
+    0 0 35px rgba(217,70,239,.25);
 }
 
 
 #loginBtn:active {
 
-  transform: translateY(0);
-
+  transform: translateY(-1px);
 }
 
 
-/* =========================================
+/* =========================================================
    ERROR MESSAGE
-   ========================================= */
+   ========================================================= */
 
 #loginMessage {
 
-  color: #e34d59 !important;
-
-  margin:
-    10px 0 0 !important;
+  margin: 12px 0 0 !important;
 
   text-align: center;
 
-  font-size: 12px;
+  color: #fda4af !important;
+
+  font-size: 13px;
 
   font-weight: 700;
+
 }
 
 
-/* =========================================
-   MOBILE
-   ========================================= */
+/* =========================================================
+   EXTRA DECORATIVE LIGHT
+   ========================================================= */
 
-@media (max-width: 500px) {
+#loginScreen .login-box {
+
+  overflow: hidden;
+}
+
+
+#loginScreen .login-box::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  top: -100px;
+  right: -80px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(236,72,153,.28),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
 
   #loginScreen {
 
     padding: 18px;
-
   }
+
 
   #loginScreen > .login-box {
 
     width: 100%;
 
-    padding: 27px 22px;
+    padding: 34px 23px;
 
-    border-radius: 22px;
+    border-radius: 25px;
+  }
 
+
+  #loginScreen .login-box h2::before {
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 19px;
+
+    margin-bottom: 18px;
+  }
+
+
+  #loginScreen .login-box h2::after {
+
+    font-size: 29px;
+  }
+
+
+  #candidateSelect,
+  #passcodeInput {
+
+    font-size: 14px;
+
+    padding: 14px !important;
+  }
+
+
+  #loginBtn {
+
+    padding: 14px !important;
   }
 
 }
