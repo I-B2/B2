@@ -368,7 +368,13 @@ function renderRanking() {
         })
         .sort((a, b) => b.hours - a.hours);
 
+window.challengeRankedCandidates =
+    ranked.map(item => item.candidate);
 
+window.dispatchEvent(
+    new CustomEvent("challengeRankingReady")
+);
+   
     container.innerHTML = "";
 
 
