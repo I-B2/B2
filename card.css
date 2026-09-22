@@ -44,3 +44,14 @@
   border-radius: inherit;
   transition: width .2s;
 }
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
