@@ -296,14 +296,27 @@ function renderCards() {
   const max = Math.max(1, ...values);
   summaryCards.innerHTML = "";
 
-  CANDIDATES.forEach((name, i) => {
+  const ranked =
+    window.challengeRankedCandidates?.length
+      ? window.challengeRankedCandidates
+      : CANDIDATES;
+
+  ranked.forEach(name => {
+    const i = CANDIDATES.indexOf(name);
+
+    if (i === -1) return;
+
     const card = document.createElement("div");
     card.className = "card";
+
     card.innerHTML = `
       <div class="card-name">${name}</div>
       <div class="card-hours">${values[i]} <span>hours</span></div>
-      <div class="mini-progress"><div style="width:${(values[i] / max) * 100}%"></div></div>
+      <div class="mini-progress">
+        <div style="width:${(values[i] / max) * 100}%"></div>
+      </div>
     `;
+
     summaryCards.appendChild(card);
   });
 }
@@ -368,6 +381,7 @@ window.addEventListener("challengeRankingReady", () => {
     });
 
     candidateSelect.value = currentValue;
+  renderCards();
 });
 const passcodeInput = document.getElementById("passcodeInput");
 const loginBtn = document.getElementById("loginBtn");
