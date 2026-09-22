@@ -301,14 +301,15 @@ function renderCards() {
       ? window.challengeRankedCandidates
       : CANDIDATES;
 
-  ranked.forEach(name => {
+ranked.forEach((name, index) => {
     const i = CANDIDATES.indexOf(name);
 
     if (i === -1) return;
-
-    const card = document.createElement("div");
-    card.className = "card";
-
+const rank = index + 1;
+ const card = document.createElement("div");
+card.className = "card";
+card.classList.add(`rank-${rank}`);
+  
     card.innerHTML = `
       <div class="card-name">${name}</div>
       <div class="card-hours">${values[i]} <span>hours</span></div>
