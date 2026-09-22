@@ -436,3 +436,254 @@
     font-size: 29px;
   }
 }
+
+/* =========================================================
+   🌈 NEON GRADIENT CHAMPION CARD
+   ========================================================= */
+
+.card.rank-1 {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071a2f 0%,
+      #101052 38%,
+      #32105c 70%,
+      #061b35 100%
+    );
+
+  border: 2px solid transparent;
+  border-radius: 22px;
+
+  background-clip: padding-box;
+
+  box-shadow:
+    0 0 12px rgba(0, 229, 255, 0.55),
+    0 0 28px rgba(0, 119, 255, 0.35),
+    0 0 55px rgba(168, 85, 247, 0.28),
+    0 18px 40px rgba(0, 0, 0, 0.25);
+
+  transform: translateY(-8px) scale(1.035);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+
+/* Neon gradient border */
+
+.card.rank-1::before {
+  content: "";
+
+  position: absolute;
+  inset: -2px;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      120deg,
+      #00f5ff,
+      #0077ff,
+      #8b5cf6,
+      #ec4899,
+      #00f5ff
+    );
+
+  background-size: 300% 300%;
+
+  animation: neonBorder 5s linear infinite;
+
+  z-index: -2;
+}
+
+
+/* Inner dark glass */
+
+.card.rank-1::after {
+  content: "";
+
+  position: absolute;
+  inset: 2px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(5, 20, 45, 0.96),
+      rgba(18, 12, 58, 0.94),
+      rgba(35, 10, 55, 0.96)
+    );
+
+  z-index: -1;
+}
+
+
+/* Keep content above layers */
+
+.card.rank-1 > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   CHAMPION NAME
+   ========================================================= */
+
+.card.rank-1 .card-name {
+  color: #ffffff;
+
+  font-size: 19px;
+  font-weight: 900;
+
+  text-shadow:
+    0 0 8px rgba(0, 229, 255, 0.75),
+    0 0 18px rgba(139, 92, 246, 0.45);
+}
+
+
+/* =========================================================
+   CHAMPION HOURS
+   ========================================================= */
+
+.card.rank-1 .card-hours {
+  color: #ffffff;
+
+  font-size: 38px;
+  font-weight: 900;
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.75),
+    0 0 18px rgba(0, 229, 255, 0.65);
+}
+
+.card.rank-1 .card-hours span {
+  color: #b9dfff;
+}
+
+
+/* =========================================================
+   NEON PROGRESS BAR
+   ========================================================= */
+
+.card.rank-1 .mini-progress {
+  height: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  border: 1px solid rgba(0, 229, 255, 0.25);
+
+  box-shadow:
+    inset 0 0 8px rgba(0, 0, 0, 0.35),
+    0 0 8px rgba(0, 229, 255, 0.15);
+}
+
+
+.card.rank-1 .mini-progress div {
+  background:
+    linear-gradient(
+      90deg,
+      #00f5ff,
+      #0077ff,
+      #8b5cf6,
+      #ec4899
+    );
+
+  background-size: 200% 100%;
+
+  animation: neonProgress 3s linear infinite;
+
+  box-shadow:
+    0 0 7px #00f5ff,
+    0 0 14px rgba(139, 92, 246, 0.7);
+}
+
+
+/* =========================================================
+   🏆 CHAMPION BADGE
+   ========================================================= */
+
+.card.rank-1 .card-name::after {
+  content: "  ♛  #1";
+
+  display: inline-block;
+
+  margin-left: 7px;
+  padding: 3px 7px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0077ff,
+      #8b5cf6,
+      #ec4899
+    );
+
+  box-shadow:
+    0 0 8px rgba(0, 229, 255, 0.5);
+
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.card.rank-1:hover {
+  transform: translateY(-14px) scale(1.055);
+
+  box-shadow:
+    0 0 18px rgba(0, 229, 255, 0.75),
+    0 0 38px rgba(0, 119, 255, 0.5),
+    0 0 70px rgba(168, 85, 247, 0.4),
+    0 25px 55px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes neonBorder {
+
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+
+}
+
+
+@keyframes neonProgress {
+
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+
+}
