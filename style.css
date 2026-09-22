@@ -76,53 +76,6 @@ h1 {
   background: transparent;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 17px;
-}
-
-.card-name {
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.card-hours {
-  font-size: 29px;
-  font-weight: 800;
-  margin-top: 7px;
-}
-
-.card-hours span {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.mini-progress {
-  height: 6px;
-  background: #edf0f5;
-  border-radius: 99px;
-  margin-top: 12px;
-  overflow: hidden;
-}
-
-.mini-progress div {
-  height: 100%;
-  width: 0;
-  background: var(--accent);
-  border-radius: inherit;
-  transition: width .2s;
-}
-
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
