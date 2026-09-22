@@ -194,9 +194,7 @@ footer {
 }
 
 @media (max-width: 900px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  
   .graphs {
     grid-template-columns: 1fr;
   }
@@ -217,9 +215,7 @@ footer {
   .date-box {
     width: 100%;
   }
-  .cards {
-    grid-template-columns: 1fr 1fr;
-  }
+ 
   .panel {
     padding: 14px;
   }
