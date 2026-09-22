@@ -611,32 +611,22 @@
    ========================================================= */
 
 .card.rank-1 .card-name::after {
-  content: "  ♛  #1";
+  color: #3d2a00;
 
-  display: inline-block;
-
-  margin-left: 7px;
-  padding: 3px 7px;
-
-  border-radius: 999px;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  color: #ffffff;
-
-  background:
-    linear-gradient(
-      90deg,
-      #0077ff,
-      #8b5cf6,
-      #ec4899
-    );
+  background: linear-gradient(
+    135deg,
+    #fff3a3 0%,
+    #ffd700 25%,
+    #f5b400 50%,
+    #ffd700 75%,
+    #fff3a3 100%
+  );
 
   box-shadow:
-    0 0 8px rgba(0, 229, 255, 0.5);
+    0 0 8px rgba(255, 215, 0, 0.9),
+    0 0 18px rgba(255, 193, 7, 0.6);
 
-  vertical-align: middle;
+  text-shadow: none;
 }
 
 
