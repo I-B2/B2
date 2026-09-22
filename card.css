@@ -1,57 +1,438 @@
+/* =========================================================
+   CANDIDATE CARDS
+   ========================================================= */
+
 .cards {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 16px;
+  margin-bottom: 22px;
 }
+
+
+/* =========================================================
+   BASE CARD
+   ========================================================= */
 
 .card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 17px;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(145deg, #ffffff, #f4f7fb);
+
+  border: 1px solid rgba(228, 233, 240, 0.95);
+  border-radius: 20px;
+
+  padding: 20px;
+
+  min-height: 145px;
+
+  box-shadow:
+    0 8px 20px rgba(30, 45, 70, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+
+  animation: cardAppear 0.5s ease both;
 }
+
+
+/* Soft light inside card */
+
+.card::before {
+  content: "";
+  position: absolute;
+
+  width: 120px;
+  height: 120px;
+
+  top: -65px;
+  right: -55px;
+
+  background: rgba(49, 94, 251, 0.08);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+/* Hover */
+
+.card:hover {
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 18px 35px rgba(30, 45, 70, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+
+/* =========================================================
+   NAME
+   ========================================================= */
 
 .card-name {
-  font-weight: 700;
-  font-size: 15px;
+  position: relative;
+
+  font-weight: 800;
+  font-size: 16px;
+
+  letter-spacing: 0.3px;
+
+  color: #182230;
 }
 
+
+/* =========================================================
+   HOURS
+   ========================================================= */
+
 .card-hours {
-  font-size: 29px;
-  font-weight: 800;
-  margin-top: 7px;
+  position: relative;
+
+  font-size: 31px;
+  font-weight: 900;
+
+  margin-top: 9px;
+
+  letter-spacing: -0.5px;
+
+  color: #182230;
 }
 
 .card-hours span {
   font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
+  font-weight: 600;
+
+  color: #6b7785;
+
+  letter-spacing: 0;
 }
 
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
 .mini-progress {
-  height: 6px;
-  background: #edf0f5;
+  position: relative;
+
+  height: 7px;
+
+  background: #e9edf4;
+
   border-radius: 99px;
-  margin-top: 12px;
+
+  margin-top: 15px;
+
   overflow: hidden;
 }
 
 .mini-progress div {
   height: 100%;
   width: 0;
-  background: var(--accent);
+
+  background: linear-gradient(
+    90deg,
+    #315efb,
+    #6d8cff
+  );
+
   border-radius: inherit;
-  transition: width .2s;
+
+  transition: width 0.5s ease;
 }
 
+
+/* =========================================================
+   🥇 RANK 1 — CHAMPION
+   ========================================================= */
+
+.card.rank-1 {
+  transform: translateY(-9px) scale(1.04);
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffdf4,
+      #fff7c7 55%,
+      #ffffff
+    );
+
+  border: 2px solid #f5c542;
+
+  box-shadow:
+    0 20px 45px rgba(245, 197, 66, 0.28),
+    0 5px 15px rgba(30, 45, 70, 0.12),
+    inset 0 1px 0 #ffffff;
+
+  z-index: 5;
+}
+
+
+/* Champion glow */
+
+.card.rank-1::before {
+  width: 190px;
+  height: 190px;
+
+  top: -100px;
+  right: -80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 205, 50, 0.30),
+      transparent 70%
+    );
+}
+
+
+/* Crown */
+
+.card.rank-1::after {
+  content: "♛";
+
+  position: absolute;
+
+  top: 9px;
+  right: 14px;
+
+  font-size: 29px;
+
+  color: #d99d00;
+
+  filter:
+    drop-shadow(0 3px 3px rgba(180, 120, 0, 0.25));
+
+  animation: crownFloat 2s ease-in-out infinite;
+}
+
+
+/* Champion name */
+
+.card.rank-1 .card-name {
+  color: #9b6a00;
+
+  font-size: 18px;
+}
+
+
+/* Champion hours */
+
+.card.rank-1 .card-hours {
+  color: #7b5500;
+
+  font-size: 36px;
+}
+
+
+/* Champion progress */
+
+.card.rank-1 .mini-progress {
+  height: 9px;
+
+  background: #f4e5a7;
+
+  box-shadow:
+    inset 0 1px 3px rgba(150, 110, 0, 0.15);
+}
+
+.card.rank-1 .mini-progress div {
+  background:
+    linear-gradient(
+      90deg,
+      #d99d00,
+      #ffd84d,
+      #d99d00
+    );
+
+  box-shadow:
+    0 0 10px rgba(245, 197, 66, 0.55);
+}
+
+
+/* Champion hover */
+
+.card.rank-1:hover {
+  transform: translateY(-13px) scale(1.06);
+
+  box-shadow:
+    0 28px 55px rgba(245, 197, 66, 0.34),
+    0 8px 20px rgba(30, 45, 70, 0.15);
+}
+
+
+/* =========================================================
+   🥈 RANK 2
+   ========================================================= */
+
+.card.rank-2 {
+  border: 1px solid #b9c1cc;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f1f3f6
+    );
+
+  box-shadow:
+    0 13px 28px rgba(90, 100, 115, 0.14);
+}
+
+.card.rank-2 .card-name {
+  color: #596574;
+}
+
+.card.rank-2 .mini-progress div {
+  background:
+    linear-gradient(
+      90deg,
+      #7b8794,
+      #c7ced6
+    );
+}
+
+
+/* =========================================================
+   🥉 RANK 3
+   ========================================================= */
+
+.card.rank-3 {
+  border: 1px solid #d39a6a;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffaf5,
+      #f8e8db
+    );
+
+  box-shadow:
+    0 13px 28px rgba(170, 100, 55, 0.14);
+}
+
+.card.rank-3 .card-name {
+  color: #9a572e;
+}
+
+.card.rank-3 .mini-progress div {
+  background:
+    linear-gradient(
+      90deg,
+      #b86635,
+      #e0a276
+    );
+}
+
+
+/* =========================================================
+   NORMAL RANKS
+   ========================================================= */
+
+.card.rank-4,
+.card.rank-5,
+.card.rank-6 {
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f7f9fc
+    );
+}
+
+
+/* =========================================================
+   CARD ENTRY ANIMATION
+   ========================================================= */
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* Champion animation */
+
+@keyframes crownFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-4px) rotate(3deg);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card.rank-1 {
+    transform: scale(1.02);
+  }
+}
+
+
 @media (max-width: 900px) {
+
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .card.rank-1 {
+    transform: scale(1.02);
+  }
 }
+
+
 @media (max-width: 560px) {
+
   .cards {
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    padding: 14px;
+    min-height: 125px;
+    border-radius: 16px;
+  }
+
+  .card-name {
+    font-size: 14px;
+  }
+
+  .card-hours {
+    font-size: 25px;
+  }
+
+  .card.rank-1 {
+    transform: scale(1.03);
+  }
+
+  .card.rank-1 .card-hours {
+    font-size: 29px;
   }
 }
