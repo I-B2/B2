@@ -350,6 +350,25 @@ async function startApp() {
 
 const loginScreen = document.getElementById("loginScreen");
 const candidateSelect = document.getElementById("candidateSelect");
+window.addEventListener("challengeRankingReady", () => {
+    const ranked = window.challengeRankedCandidates;
+
+    if (!ranked || !candidateSelect) return;
+
+    const currentValue = candidateSelect.value;
+
+    ranked.forEach(name => {
+        const option = [...candidateSelect.options].find(
+            option => option.textContent.trim() === name
+        );
+
+        if (option) {
+            candidateSelect.appendChild(option);
+        }
+    });
+
+    candidateSelect.value = currentValue;
+});
 const passcodeInput = document.getElementById("passcodeInput");
 const loginBtn = document.getElementById("loginBtn");
 const loginMessage = document.getElementById("loginMessage");
