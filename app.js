@@ -348,6 +348,45 @@ async function startApp() {
   render();
 }
 
+async function loadChallengeRankingOrder() {
+    const START_DATE = "2026-09-21";
+    const END_DATE = "2026-09-30";
+
+    const { data, error } = await db
+        .from("study_hours")
+        .select("date, candidate, hour, completed")
+        .gte("date", START_DATE)
+        .lte("date", END_DATE);
+
+    if (error) {
+        console.error("Challenge ranking load error:", error);
+        return;
+    }
+
+    const totals = {};
+
+    CANDIDATES.forEach(name => {
+        totals[name] = 0;
+    });
+
+    data.forEach(row => {
+        if (
+            CANDIDATES.includes(row.candidate) &&
+            row.completed
+        ) {
+            totals[row.candidate]++;
+        }
+    });
+
+    const rankedCandidates = [...CANDIDATES].sort(
+        (a, b) => totals[b] - totals[a]
+    );
+
+    console.log("Challenge Ranking Order:", rankedCandidates);
+
+    return rankedCandidates;
+}
+
 const loginScreen = document.getElementById("loginScreen");
 const candidateSelect = document.getElementById("candidateSelect");
 const passcodeInput = document.getElementById("passcodeInput");
