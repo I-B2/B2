@@ -487,5 +487,7 @@ document.getElementById("candidateSelect").addEventListener("change", function (
 const music = document.getElementById("bgMusic");
 
 document.addEventListener("click", () => {
-  music.play();
+  if (loggedInCandidate) {
+    music.play();
+  }
 }, { once: true });
