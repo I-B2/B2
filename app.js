@@ -80,6 +80,28 @@ async function loadData() {
 let data = emptyData();
 let loggedInCandidate = null;
 
+function protectBrajeshCheckbox() {
+    document.addEventListener("click", function (event) {
+
+        if (!event.target.classList.contains("hour-checkbox")) {
+            return;
+        }
+
+        if (loggedInCandidate === "Brajesh") {
+            event.preventDefault();
+
+            event.target.checked = false;
+
+            alert(
+                "You are not maintaining rule, so you are unable to click on checkbox.\n\n" +
+                "Please contact to developer.\n\n" +
+                "Thank you 💛"
+            );
+        }
+
+    }, true);
+}
+
 function hourText(h) {
   return h === 0 ? "1" : String(h + 1);
 }
@@ -506,3 +528,5 @@ document.addEventListener("click", () => {
     music.play();
   }
 }, { once: true });
+
+protectBrajeshCheckbox();
