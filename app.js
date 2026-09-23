@@ -318,10 +318,13 @@ function renderCards() {
   const max = Math.max(1, ...values);
   summaryCards.innerHTML = "";
 
-  const ranked =
-    window.challengeRankedCandidates?.length
-      ? window.challengeRankedCandidates
-      : CANDIDATES;
+ const ranked = CANDIDATES
+    .map((name, i) => ({
+        name,
+        value: values[i]
+    }))
+    .sort((a, b) => b.value - a.value)
+    .map(item => item.name);
 
 ranked.forEach((name, index) => {
     const i = CANDIDATES.indexOf(name);
