@@ -533,4 +533,4 @@ document.addEventListener("click", () => {
 }, { once: true });
 
 protectBrajeshCheckbox();
-alert ("Dear Warrior , 2 din aur bach rahe hai .. 120 hours complete karna hai... 😎");
+alert ("Dear Warrior , 1 din aur bach rahe hai .. 120 hours complete karna hai... 😎");
