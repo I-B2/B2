@@ -26,7 +26,7 @@ const challengeDB = window.supabase.createClient(
    ========================================================= */
 
 const CANDIDATES = [
-    "Brajesh",
+    "Chanchal",
     "Bittu",
     "Anshu",
     "Priti",
