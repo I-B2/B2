@@ -1231,7 +1231,7 @@ const max = TOTAL_TARGET;
         "bold 12px Arial";
 
     ctx.fillText(
-      `${TOTAL_TARGET}h Target`
+      `${TOTAL_TARGET}h Target`,
         left + 5,
         targetY - 8
     );
