@@ -699,6 +699,10 @@ body {
    RESPONSIVE CANVAS FIX
    ========================================= */
 
+/* =========================================
+   RESPONSIVE CANVAS SCROLL
+   ========================================= */
+
 .chart-box {
     overflow-x: auto;
     overflow-y: hidden;
@@ -706,8 +710,8 @@ body {
 
 .chart-box canvas {
     display: block;
-    width: 100% !important;
     height: 100% !important;
+    max-width: none !important;
 }
 /* =========================================
    MOBILE
