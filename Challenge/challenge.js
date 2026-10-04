@@ -34,13 +34,29 @@ const CANDIDATES = [
    "Honey"
 ];
 
-const START_DATE = "2026-09-21";
-const END_DATE   = "2026-09-30";
+const START_DATE = "2026-10-05";
+const END_DATE   = "2026-10-31";
 
-const DAILY_TARGET = 12;
-const TOTAL_TARGET = 120;
+/*const DAILY_TARGET = 12;*/
+const TOTAL_TARGET = 260;
 
 const CHALLENGE_DAYS = [
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
     "21",
     "22",
     "23",
@@ -50,9 +66,9 @@ const CHALLENGE_DAYS = [
     "27",
     "28",
     "29",
-    "30"
+    "30",
+    "31"
 ];
-
 
 /* =========================================================
    SUMIRAN SETTINGS
@@ -1163,9 +1179,7 @@ function drawCumulativeChart() {
     const chartH =
         height - top - bottom;
 
-
-    const max = 120;
-
+const max = TOTAL_TARGET;
 
     const colors = [
         "#ff0080",
@@ -1181,7 +1195,7 @@ function drawCumulativeChart() {
     const targetY =
         top +
         chartH -
-        (120 / max) *
+       (TOTAL_TARGET / max) *
         chartH;
 
 
@@ -1217,7 +1231,7 @@ function drawCumulativeChart() {
         "bold 12px Arial";
 
     ctx.fillText(
-        "120h Target",
+      `${TOTAL_TARGET}h Target`
         left + 5,
         targetY - 8
     );
@@ -1305,7 +1319,7 @@ function drawCumulativeChart() {
 
     for (
         let value = 0;
-        value <= 120;
+       value <= TOTAL_TARGET;
         value += 20
     ) {
 
