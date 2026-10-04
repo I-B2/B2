@@ -158,7 +158,7 @@ function createEmptySumiranData() {
 
 function dateFromDay(day) {
 
-    return `2026-09-${day}`;
+    return `2026-10-${day}`;
 
 }
 
@@ -785,10 +785,10 @@ function renderFinalResult() {
                 Challenge Started!
             </div>
 
-            <div class="winner-hours">
-                21–30 September का result
-                data आने के बाद दिखेगा.
-            </div>
+           <div class="winner-hours">
+    5–31 October का result
+    data आने के बाद दिखेगा.
+</div>
 
         `;
 
