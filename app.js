@@ -535,4 +535,3 @@ document.addEventListener("click", () => {
 }, { once: true });
 
 protectBrajeshCheckbox();
-alert ("Dear Warrior ,New challenge is coming within few days ...iss baar aur dhamaka karna hai .... tab tak rest kariye... 😎");
