@@ -824,33 +824,61 @@ function prepareCanvas(canvas) {
 
     if (!canvas) return null;
 
+    const container =
+        canvas.parentElement;
 
     const rect =
-        canvas.getBoundingClientRect();
+        container.getBoundingClientRect();
 
-const minWidth = CHALLENGE_DAYS.length * 45;
-const width = Math.max(minWidth, rect.width);
-  /* const width = Math.max(300, rect.width);*/
+    /*
+       Daily Consistency table ki actual
+       content width ko chart ki width banayenge
+    */
+    const consistencyTable =
+        document.querySelector(
+            "#consistencyTable .consistency-table"
+        );
+
+    const contentWidth =
+        consistencyTable
+            ? consistencyTable.scrollWidth
+            : rect.width;
+
+    /*
+       Chart kabhi container se chhota nahi hoga
+    */
+    const width =
+        Math.max(
+            rect.width,
+            contentWidth
+        );
 
     const height =
-        Math.max(250, rect.height);
+        Math.max(
+            250,
+            rect.height
+        );
 
+    /*
+       Canvas ki REAL visible width
+    */
+    canvas.style.width =
+        width + "px";
+
+    canvas.style.height =
+        height + "px";
 
     const dpr =
         window.devicePixelRatio || 1;
 
-
     canvas.width =
         width * dpr;
-
 
     canvas.height =
         height * dpr;
 
-
     const ctx =
         canvas.getContext("2d");
-
 
     ctx.setTransform(
         dpr,
@@ -861,16 +889,12 @@ const width = Math.max(minWidth, rect.width);
         0
     );
 
-
     return {
         ctx,
         width,
         height
     };
-
 }
-
-
 /* =========================================================
    10-DAY PROGRESS GRAPH
    ========================================================= */
