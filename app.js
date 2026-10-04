@@ -26,7 +26,7 @@ const totalCanvas = document.getElementById("totalChart");
 const progressCanvas = document.getElementById("progressChart");
 const rankCanvas = document.getElementById("rankChart");
 
-/*const today = new Date();
+const today = new Date();
 
 const indiaDate = new Date(
   today.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
@@ -36,8 +36,8 @@ dateInput.value =
   indiaDate.getFullYear() + "-" +
   String(indiaDate.getMonth() + 1).padStart(2, "0") + "-" +
   String(indiaDate.getDate()).padStart(2, "0");
-  */
-dateInput.value = "2026-09-30";
+  
+/*dateInput.value = "2026-09-30";*/
 
 
 function storageKey() {
