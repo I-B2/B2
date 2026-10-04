@@ -828,10 +828,7 @@ function prepareCanvas(canvas) {
     const rect =
         canvas.getBoundingClientRect();
 
-
-   const minWidth = CHALLENGE_DAYS.length * 45;
-const width = Math.max(minWidth, rect.width);
-
+const width = Math.max(300, rect.width);
 
     const height =
         Math.max(250, rect.height);
