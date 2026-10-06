@@ -454,6 +454,10 @@ async function login() {
   loggedInCandidate = CANDIDATES.find(
   name => name.toLowerCase() === email.split("@")[0].toLowerCase()
 );
+
+  if (email === "brajesh@study.local") {
+    loggedInCandidate = "Chanchal";
+}
   
   loginMessage.textContent = "";
 
