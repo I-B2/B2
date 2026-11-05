@@ -34,8 +34,8 @@ const CANDIDATES = [
    "Honey"
 ];
 
-const START_DATE = "2026-10-05";
-const END_DATE   = "2026-10-31";
+const START_DATE = "2026-11-05";
+const END_DATE   = "2026-11-10";
 
 /*const DAILY_TARGET = 12;*/
 const TOTAL_TARGET = 260;
