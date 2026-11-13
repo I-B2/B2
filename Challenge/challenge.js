@@ -31,7 +31,9 @@ const CANDIDATES = [
     "Anshu",
     "Priti",
     "Ribha",
-   "Honey"
+   "Honey",
+   "P",
+   "Brajesh"
 ];
 
 const START_DATE = "2026-11-16";
