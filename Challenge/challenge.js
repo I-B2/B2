@@ -1361,7 +1361,7 @@ const max = TOTAL_TARGET;
 
 
             ctx.fillText(
-                day,
+                   day.slice(-2),
                 x,
                 height - 18
             );
