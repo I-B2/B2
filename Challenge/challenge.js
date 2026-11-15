@@ -40,10 +40,19 @@ const END_DATE   = "2026-12-31";
 /*const DAILY_TARGET = 12;*/
 let TOTAL_TARGET =0 ;
 
-const CHALLENGE_DAYS = Array.from(
-    { length: 46 },
-    (_, index) => String(index + 1)
-);
+const CHALLENGE_DAYS = [];
+
+for (
+    let date = new Date(2026, 10, 16);
+    date <= new Date(2026, 11, 31);
+    date.setDate(date.getDate() + 1)
+) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    CHALLENGE_DAYS.push(`${year}-${month}-${day}`);
+}
    
 /* =========================================================
    SUMIRAN SETTINGS
