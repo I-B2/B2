@@ -148,9 +148,9 @@ th:first-child {
 }
 
 .candidate-col {
- width:150px;
+ width:120px;
   text-align: left;
-  padding-left: 15px;
+  padding-left: 10px;
   white-space:nowrap;
   overflow:hidden;
 }
