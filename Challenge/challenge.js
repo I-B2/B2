@@ -31,16 +31,14 @@ const CANDIDATES = [
     "Anshu",
     "Priti",
     "Ribha",
-   "Honey",
-   "P",
-   "Brajesh"
+   "Honey"
 ];
 
 const START_DATE = "2026-11-16";
 const END_DATE   = "2026-12-31";
 
 /*const DAILY_TARGET = 12;*/
-const TOTAL_TARGET =0 ;
+let TOTAL_TARGET =0 ;
 
 const CHALLENGE_DAYS = [
     "16",
@@ -1416,6 +1414,12 @@ const max = TOTAL_TARGET;
    ========================================================= */
 
 function renderChallenge() {
+   TOTAL_TARGET = Math.max(
+    0,
+    ...CANDIDATES.map(candidate =>
+        getCandidateTotal(candidate)
+    )
+);
 
     renderSummary();
 
