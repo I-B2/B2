@@ -183,15 +183,13 @@ async function loadChallengeStudyData() {
             return;
         }
 
-        const date = String(row.date);
+      const date = String(row.date);
 
-        const day = date.slice(-2);
+if (!CHALLENGE_DAYS.includes(date)) {
+    return;
+}
 
-        if (!CHALLENGE_DAYS.includes(day)) {
-            return;
-        }
-
-        studyData[row.candidate][day]++;
+studyData[row.candidate][date]++;
 
     });
 
@@ -654,7 +652,7 @@ function renderConsistency() {
     CHALLENGE_DAYS.forEach(day => {
 
         html += `
-            <th>${day}</th>
+            <th>${day.slice(-2)}</th>
         `;
 
     });
