@@ -147,9 +147,11 @@ th:first-child {
 }
 
 .candidate-col {
- 
+ max-width:150px;
   text-align: left;
   padding-left: 15px;
+  white-space:nowrap;
+  background:linear-gradient(135deg,#eef2ff,#e0e7ff);
 }
 
 .candidate-name {
