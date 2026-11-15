@@ -118,6 +118,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   min-width: 1050px;
+  table-layout:fixed;
 }
 
 th, td {
@@ -139,18 +140,19 @@ td:first-child, th:first-child {
   position: sticky;
   left: 0;
   z-index: 3;
-   background:linear-gradient(135deg,#eef2ff,#e0e7ff);
+   background:linear-gradient(135deg,#dcfce7,#fef08a);
 }
 
 th:first-child {
-   background:linear-gradient(135deg,#eef2ff,#e0e7ff);
+   background:linear-gradient(135deg,#86efac,#fde047);
 }
 
 .candidate-col {
- max-width:150px;
+ width:150px;
   text-align: left;
   padding-left: 15px;
   white-space:nowrap;
+  overflow:hidden;
 }
 
 .candidate-name {
