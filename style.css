@@ -118,7 +118,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   min-width: 1050px;
-  table-layout:fixed;
+ 
 }
 
 th, td {
@@ -148,11 +148,11 @@ th:first-child {
 }
 
 .candidate-col {
- width:120px;
+ width:150px;
   text-align: left;
-  padding-left: 10px;
+  padding-left: 15px;
   white-space:nowrap;
-  overflow:hidden;
+  overflow:auto;
 }
 
 .candidate-name {
