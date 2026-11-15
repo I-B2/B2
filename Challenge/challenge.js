@@ -40,7 +40,7 @@ const START_DATE = "2026-11-16";
 const END_DATE   = "2026-12-31";
 
 /*const DAILY_TARGET = 12;*/
-const TOTAL_TARGET =1104 ;
+const TOTAL_TARGET =0 ;
 
 const CHALLENGE_DAYS = [
     "16",
@@ -416,12 +416,10 @@ window.dispatchEvent(
 
 
     ranked.forEach((item, index) => {
-
-        const percentage =
-            Math.min(
-                100,
-                (item.hours / TOTAL_TARGET) * 100
-            );
+       
+const percentage = TOTAL_TARGET > 0
+    ? Math.min(100, (item.hours / TOTAL_TARGET) * 100)
+    : 0;
 
 
         const card =
@@ -495,12 +493,9 @@ function renderTargetProgress() {
             getCandidateTotal(candidate);
 
 
-        const percentage =
-            Math.min(
-                100,
-                (hours / TOTAL_TARGET) * 100
-            );
-
+       const percentage = TOTAL_TARGET > 0
+    ? Math.min(100, (hours / TOTAL_TARGET) * 100)
+    : 0;
 
         const card =
             document.createElement("div");
@@ -1223,7 +1218,7 @@ function drawCumulativeChart() {
     const chartH =
         height - top - bottom;
 
-const max = TOTAL_TARGET;
+const max = Math.max(TOTAL_TARGET, 1);
 
     const colors = [
         "#ff0080",
@@ -1275,7 +1270,7 @@ const max = TOTAL_TARGET;
         "bold 12px Arial";
 
     ctx.fillText(
-      `${TOTAL_TARGET}h Target`,
+     `Leader Benchmark: ${TOTAL_TARGET}h`,
         left + 5,
         targetY - 8
     );
@@ -1417,6 +1412,13 @@ const max = TOTAL_TARGET;
 
 function renderChallenge() {
 
+TOTAL_TARGET = Math.max(
+    0,
+    ...CANDIDATES.map(candidate =>
+        getCandidateTotal(candidate)
+    )
+);
+   
     renderSummary();
 
     renderRanking();
