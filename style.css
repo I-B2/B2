@@ -139,11 +139,11 @@ td:first-child, th:first-child {
   position: sticky;
   left: 0;
   z-index: 3;
-  background: var(--panel);
+   background:linear-gradient(135deg,#eef2ff,#e0e7ff);
 }
 
 th:first-child {
-  background: #f8faff;
+   background:linear-gradient(135deg,#eef2ff,#e0e7ff);
 }
 
 .candidate-col {
@@ -151,7 +151,6 @@ th:first-child {
   text-align: left;
   padding-left: 15px;
   white-space:nowrap;
-  background:linear-gradient(135deg,#eef2ff,#e0e7ff);
 }
 
 .candidate-name {
