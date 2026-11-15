@@ -1126,7 +1126,7 @@ function drawChallengeProgressChart() {
 
 
             ctx.fillText(
-                day,
+               day.slice(-2),
                 x,
                 height - 18
             );
