@@ -28,7 +28,6 @@ const challengeDB = window.supabase.createClient(
 const CANDIDATES = [
     "Chanchal",
     "Bittu",
-    "Anshu",
     "Priti",
     "Ribha",
    "Honey"
