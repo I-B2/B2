@@ -27,10 +27,11 @@ const challengeDB = window.supabase.createClient(
 
 const CANDIDATES = [
     "Chanchal",
-    "Bittu",
+    
     "Priti",
     "Ribha",
-   "Honey"
+   "Honey",
+   "Anshu"
 ];
 
 const START_DATE = "2026-11-16";
