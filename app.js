@@ -14,7 +14,7 @@ const db = window.supabase.createClient(
   }
 );
 
-const CANDIDATES = ["Chanchal", "Bittu", "Anshu","Priti", "Ribha","Honey"];
+const CANDIDATES = ["Chanchal", "Bittu","Priti", "Ribha","Honey"];
 const HOURS = 24;
 
 const dateInput = document.getElementById("reportDate");
